@@ -37,13 +37,15 @@ export default class App extends Component {
     return (
       
       <View style={styles.container}>
-        <Image source={require('C:/Users/danie/Desktop/GB/GB-learning/project/screens/logo.jpg')} />
+        
+        <Image style={styles.image} source={require('./images/logo.jpg')} />
         <TextInput
           value={this.state.username}
           onChangeText={(username) => this.setState({ username })}
           placeholder={'Username'}
           style={styles.input}
         />
+        
         <TextInput
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
@@ -79,6 +81,11 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     marginBottom: 10,
   },
+  image: {
+    width:100,
+    height:100,
+    display:'block',
+  }
 });
 
 
