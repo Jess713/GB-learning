@@ -94,6 +94,3 @@ function handleHelpPress() {
   );
 }
 
-const styles = StyleSheet.create({
- 
-});
