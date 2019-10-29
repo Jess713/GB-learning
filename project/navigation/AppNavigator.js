@@ -1,6 +1,6 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-
+import {Router, Stack, Scene} from 'react-native-router-flux';
 import MainTabNavigator from './MainTabNavigator';
 
 export default createAppContainer(
