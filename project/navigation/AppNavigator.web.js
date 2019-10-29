@@ -1,6 +1,6 @@
 import { createBrowserApp } from '@react-navigation/web';
 import { createSwitchNavigator } from 'react-navigation';
-
+  import {Router, Stack, Scene} from 'react-native-router-flux';
 import MainTabNavigator from './MainTabNavigator';
 
 const switchNavigator = createSwitchNavigator({
