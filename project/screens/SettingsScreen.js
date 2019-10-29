@@ -89,5 +89,5 @@ const styles = StyleSheet.create({
 });
 
 SettingsScreen.navigationOptions = {
-  title: 'app.json',
+  title: 'Granville Biomedical Inc.',
 };
