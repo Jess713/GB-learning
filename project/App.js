@@ -26,7 +26,7 @@ export default function App(props) {
     
         <Routes/>
 
-        <AppNavigator/>
+ 
       </View>
     );
   }
