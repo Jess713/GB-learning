@@ -2,7 +2,9 @@
     import React, { Component } from 'react';
     import { StyleSheet, SafeAreaView, View} from 'react-native';
     import { WebView } from 'react-native-webview';
+
     import {Router, Stack, Scene} from 'react-native-router-flux';
+
     export default class WatchVideo extends Component<{}> {
 
       settingsscreen(){
