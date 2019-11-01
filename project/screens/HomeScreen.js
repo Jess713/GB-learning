@@ -1,5 +1,10 @@
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import Paragraph from "../components/Paragraph";
 import React, { Component } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet, Image } from 'react-native';
+import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
 
 
 export default class App extends Component {
@@ -36,30 +41,23 @@ export default class App extends Component {
   render() {
     return (
       
-      <View style={styles.container}>
-        
-        <Image style={styles.image} source={require('./images/logo.jpg')} />
-        <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
-          placeholder={'Username'}
-          style={styles.input}
-        />
-        
-        <TextInput
-          value={this.state.password}
-          onChangeText={(password) => this.setState({ password })}
-          placeholder={'Password'}
-          secureTextEntry={true}
-          style={styles.input}
-        />
-        
-        <Button
-          title={'Login'}
-          style={styles.input}
-          onPress={this.onLogin.bind(this)}
-        />
-      </View>
+      <Background>
+      <Logo />
+      <Header>Firebase Login</Header>
+  
+      <Paragraph>
+        This template supports Firebase authorization out of the box.
+      </Paragraph>
+      <Button mode="contained" onPress={() => navigation.navigate("LoginScreen")}>
+        Login
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={() => navigation.navigate("RegisterScreen")}
+      >
+        Sign Up
+      </Button>
+    </Background>
 
     );
   }
