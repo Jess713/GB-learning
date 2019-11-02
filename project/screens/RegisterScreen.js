@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Image } from 'react-native';
-
+import { Actions } from 'react-native-router-flux';
 
 export default class App extends Component {
    static navigationOptions ={
@@ -8,14 +8,6 @@ export default class App extends Component {
     headerTitleStyle: { textAlign: 'center',flex:1},
     
   };
-
-
-  // HomeScreen.navigationOptions = {
-  //     header: null,
-  //   };
-
-
-
 
   constructor(props) {
     super(props);
@@ -38,7 +30,7 @@ export default class App extends Component {
       
       <View style={styles.container}>
         
-        <Image style={styles.image} source={require('./images/logo.jpg')} />
+        <Image style={styles.image} source={require('../assets/logo.png')} />
         <TextInput
           value={this.state.username}
           onChangeText={(username) => this.setState({ username })}
@@ -55,9 +47,12 @@ export default class App extends Component {
         />
         
         <Button
-          title={'Login'}
+          title={'Placeholder for sign up'}
           style={styles.input}
-          onPress={this.onLogin.bind(this)}
+          onPress={()=>{
+            this.onLogin.bind(this);
+            Actions.landing();
+            }}
         />
       </View>
 
@@ -100,4 +95,3 @@ function handleHelpPress() {
     'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
   );
 }
-
