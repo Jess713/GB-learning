@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useState, Component } from 'react';
 import {
   SafeAreaView,
   TouchableOpacity,
@@ -7,23 +7,22 @@ import {
   Text,
 } from 'react-native';
 import Constants from 'expo-constants';
-import { Actions } from 'react-native-router-flux';
 
 const DATA = [
   {
-    id: '0', //has to be string here for id
+    id: 'first', //has to be string here for id
     title: 'First Item',
   },
   {
-    id: '1',
+    id: 'second',
     title: 'Second Item',
   },
   {
-    id: '2',
+    id: 'third',
     title: 'Third Item',
   },
   {
-    id: '3',
+    id: 'fourth',
     title: 'Fourth Item',
   },
 ];
@@ -41,7 +40,8 @@ function Item({ id, title, selected, onSelect }) {
 
 
 
-export default function LandingScreen() {
+// export default function LandingScreen() {
+  const LandingScreen = ({navigation})=>{
   const [selected, setSelected] = React.useState(new Map());
 
   const onSelect = React.useCallback(
@@ -51,7 +51,8 @@ export default function LandingScreen() {
     //   alert(id);
 
       setSelected(newSelected);
-      Actions.videolist({pressed: id});
+      // Actions.videolist({pressed: id});
+      navigation.navigate('VideoList',{pressed: id});
     },
     [selected],
   );
@@ -91,3 +92,4 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+export default memo(LandingScreen);

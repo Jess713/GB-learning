@@ -10,13 +10,14 @@ import { theme } from "../core/theme";
 import { emailValidator, passwordValidator } from "../core/utils";
 // import { loginUser } from "../api/auth-api";
 import Toast from "../components/Toast";
-import { Actions } from 'react-native-router-flux';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const emailError = emailValidator(email.value);
+  const passwordError = passwordValidator(password.value);
 
   // const _onLoginPressed = async () => {
   //   if (loading) return;
@@ -32,10 +33,10 @@ const LoginScreen = ({ navigation }) => {
 
   //   setLoading(true);
 
-  //   // const response = await loginUser({
-  //   //   email: email.value,
-  //   //   password: password.value
-  //   // });
+  //   const response = await loginUser({
+  //     email: email.value,
+  //     password: password.value
+  //   });
 
   //   if (response.error) {
   //     setError(response.error);
@@ -44,9 +45,11 @@ const LoginScreen = ({ navigation }) => {
   //   setLoading(false);
   // };
 
+
+
   return (
     <Background>
-      <BackButton goBack={() => Actions.login()} />
+      <BackButton goBack={() => navigation.navigate("LoginScreen")} />
 
       <Logo />
 
@@ -60,7 +63,7 @@ const LoginScreen = ({ navigation }) => {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-        autoCompleteType="email"
+       
         textContentType="emailAddress"
         keyboardType="email-address"
       />
@@ -78,27 +81,27 @@ const LoginScreen = ({ navigation }) => {
 
       <View style={styles.forgotPassword}>
         <TouchableOpacity
-          onPress={() => Actions.forgotpassword()}
+        // onPress={() => Actions.forgotpassword()}
         >
           <Text style={styles.label}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
-    
-      <Button loading={loading} mode="contained" 
-      onPress={()=>{
-           
-            // _onLoginPressed(); //uncomment it for firebase logic
-            Actions.landing();
-            }}
+
+      <Button loading={loading} mode="contained"
+        onPress={() => {
+
+          // _onLoginPressed(); //uncomment it for firebase logic
+          navigation.navigate("LandingScreen");
+        }}
       >
         Login
       </Button>
 
       <View style={styles.row}>
         <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => Actions.register()}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
           <Text style={styles.link}>Sign up</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <Toast message={error} onDismiss={() => setError("")} />

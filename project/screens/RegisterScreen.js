@@ -1,97 +1,133 @@
-import React, { Component } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet, Image } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import React, { memo, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import BackButton from "../components/BackButton";
+import { theme } from "../core/theme";
+import {
+  emailValidator,
+  passwordValidator,
+  nameValidator
+} from "../core/utils";
+import { signInUser } from "../api/auth-api";
+import Toast from "../components/Toast";
 
-export default class App extends Component {
-   static navigationOptions ={
-    title: "Granville Biomedical Inc.",
-    headerTitleStyle: { textAlign: 'center',flex:1},
-    
+const RegisterScreen = ({ navigation }) => {
+  const [name, setName] = useState({ value: "", error: "" });
+  const [email, setEmail] = useState({ value: "", error: "" });
+  const [password, setPassword] = useState({ value: "", error: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const _onSignUpPressed = async () => {
+    if (loading) return;
+
+    const nameError = nameValidator(name.value);
+    const emailError = emailValidator(email.value);
+    const passwordError = passwordValidator(password.value);
+
+    if (emailError || passwordError || nameError) {
+      setName({ ...name, error: nameError });
+      setEmail({ ...email, error: emailError });
+      setPassword({ ...password, error: passwordError });
+      return;
+    }
+
+    setLoading(true);
+
+    const response = await signInUser({
+      name: name.value,
+      email: email.value,
+      password: password.value
+    });
+
+    if (response.error) {
+      setError(response.error);
+    }
+
+    setLoading(false);
   };
 
-  constructor(props) {
-    super(props);
+  return (
+    <Background>
+      <BackButton goBack={() => navigation.navigate("LoginScreen")} />
 
-    
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
-  
-  
-  onLogin() {
-    const { username, password } = this.state;
-    Alert.alert('Credentials', `${username} + ${password}`);
-  }
+      <Logo />
 
-  render() {
-    return (
-      
-      <View style={styles.container}>
-        
-        <Image style={styles.image} source={require('../assets/logo.png')} />
-        <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
-          placeholder={'Username'}
-          style={styles.input}
-        />
-        
-        <TextInput
-          value={this.state.password}
-          onChangeText={(password) => this.setState({ password })}
-          placeholder={'Password'}
-          secureTextEntry={true}
-          style={styles.input}
-        />
-        
-        <Button
-          title={'Placeholder for sign up'}
-          style={styles.input}
-          onPress={()=>{
-            this.onLogin.bind(this);
-            Actions.landing();
-            }}
-        />
+      <Header>Create Account</Header>
+
+      <TextInput
+        label="Name"
+        returnKeyType="next"
+        value={name.value}
+        onChangeText={text => setName({ value: text, error: "" })}
+        error={!!name.error}
+        errorText={name.error}
+      />
+
+      <TextInput
+        label="Email"
+        returnKeyType="next"
+        value={email.value}
+        onChangeText={text => setEmail({ value: text, error: "" })}
+        error={!!email.error}
+        errorText={email.error}
+        autoCapitalize="none"
+
+        textContentType="emailAddress"
+        keyboardType="email-address"
+      />
+
+      <TextInput
+        label="Password"
+        returnKeyType="done"
+        value={password.value}
+        onChangeText={text => setPassword({ value: text, error: "" })}
+        error={!!password.error}
+        errorText={password.error}
+        secureTextEntry
+        autoCapitalize="none"
+      />
+
+      <Button
+        loading={loading}
+        mode="contained"
+        onPress={_onSignUpPressed}
+        style={styles.button}
+      >
+        Sign Up
+      </Button>
+
+      <View style={styles.row}>
+        <Text style={styles.label}>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+          <Text style={styles.link}>Login</Text>
+        </TouchableOpacity>
       </View>
 
-    );
-  }
-}
-
+      <Toast message={error} onDismiss={() => setError("")} />
+    </Background>
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+  label: {
+    color: theme.colors.secondary
   },
-  input: {
-    width: 200,
-    height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 10,
+  button: {
+    marginTop: 24
   },
-  image: {
-    width:100,
-    height:100,
-    display:'flex',
+  row: {
+    flexDirection: "row",
+    marginTop: 4
+  },
+  link: {
+    fontWeight: "bold",
+    color: theme.colors.primary
   }
 });
 
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
+export default memo(RegisterScreen);

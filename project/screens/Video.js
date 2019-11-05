@@ -1,38 +1,36 @@
-// screens/Video.js
-    import React, { Component } from 'react';
-    import { StyleSheet, SafeAreaView, View} from 'react-native';
-    import { WebView } from 'react-native-webview';
-    import { Actions, Scene, Router } from 'react-native-router-flux';
+import React, { Component } from 'react';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { WebView } from 'react-native-webview';
 
-    export default class WatchVideo extends Component<{}> {
+export default class WatchVideo extends Component<{}> {
+  constructor(props) {
+    super(props);
+    this.videourl = JSON.stringify(props.navigation.getParam('video_url', 'NO-ID'));
+  }
+  home() {
+    this.props.navigation.navigate('VideoList');
+  }
+  videos() {
+    this.props.navigation.navigate('WatchVideo');
+  }
 
-      home(){
-        Actions.VideoList();//VideoList is video home for now(route.js)
-      }
-      videos(){
-        Actions.videos();
-      }
-      constructor(props) {
-        super(props);
-        // console.log(this.props);
-      }
-      render() {
-        return (
-          <SafeAreaView style={styles.safeArea}>
-              { 
-                <WebView
-                  source={{ uri: "https://www.youtube.com/embed/"+this.props.video_url}}
-                  startInLoadingState={true} 
-                />
-              }
-          </SafeAreaView>
-        );
-      }
-    }
-  
-    const styles = StyleSheet.create({
-      safeArea: {
-        flex: 1,
-        backgroundColor: '#fff'
-      }
-    });
+  render() {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        {
+          <WebView
+            source={{ uri: "https://www.youtube.com/embed/" + JSON.parse(this.videourl) }}
+            startInLoadingState={true}
+          />
+        }
+      </SafeAreaView>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff'
+  }
+});
