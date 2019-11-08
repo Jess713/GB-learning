@@ -13,6 +13,7 @@ import {
   nameValidator
 } from "../core/utils";
 import { signInUser } from "../api/auth-api";
+import firebase from "firebase/app";
 import Toast from "../components/Toast";
 
 const RegisterScreen = ({ navigation }) => {
@@ -49,11 +50,27 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     setLoading(false);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+         console.log("user ",user);
+        // User is logged in
+        navigation.navigate("LandingScreen");
+      } else {
+        // User is not logged in
+        console.log("SIGN UP FAILLLLLLLLLLLLLLLLLLLLL");
+        navigation.navigate("LoginScreen");
+      }
+    });
+
+
   };
+
+
 
   return (
     <Background>
-      <BackButton goBack={() => navigation.navigate("LoginScreen")} />
+      <BackButton goBack={() => navigation.navigate("HomeScreen")} />
 
       <Logo />
 
@@ -76,7 +93,7 @@ const RegisterScreen = ({ navigation }) => {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-
+        // autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
       />

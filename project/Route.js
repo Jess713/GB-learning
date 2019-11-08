@@ -13,7 +13,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 const MainNavigator = createStackNavigator(
   {
     LoginScreen:{screen: LoginScreen},
-    // RegisterScreen: {screen: RegisterScreen},
+    RegisterScreen: {screen: RegisterScreen},
     LandingScreen: {screen: LandingScreen},
     VideoList: {screen: VideoList},
     WatchVideo: {screen: WatchVideo},

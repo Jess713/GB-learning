@@ -8,7 +8,7 @@ import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
 import { emailValidator, passwordValidator } from "../core/utils";
-// import { loginUser } from "../api/auth-api";
+import { loginUser } from "../api/auth-api";
 import Toast from "../components/Toast";
 
 const LoginScreen = ({ navigation }) => {
@@ -16,44 +16,40 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const emailError = emailValidator(email.value);
-  const passwordError = passwordValidator(password.value);
 
-  // const _onLoginPressed = async () => {
-  //   if (loading) return;
+  const _onLoginPressed = async () => {
+    if (loading) return;
 
-  //   const emailError = emailValidator(email.value);
-  //   const passwordError = passwordValidator(password.value);
+    const emailError = emailValidator(email.value);
+    const passwordError = passwordValidator(password.value);
 
-  //   if (emailError || passwordError) {
-  //     setEmail({ ...email, error: emailError });
-  //     setPassword({ ...password, error: passwordError });
-  //     return;
-  //   }
+    if (emailError || passwordError) {
+      setEmail({ ...email, error: emailError });
+      setPassword({ ...password, error: passwordError });
+      return;
+    }
 
-  //   setLoading(true);
+    setLoading(true);
 
-  //   const response = await loginUser({
-  //     email: email.value,
-  //     password: password.value
-  //   });
+    const response = await loginUser({
+      email: email.value,
+      password: password.value
+    });
 
-  //   if (response.error) {
-  //     setError(response.error);
-  //   }
+    if (response.error) {
+      setError(response.error);
+    }
 
-  //   setLoading(false);
-  // };
-
-
+    setLoading(false);
+  };
 
   return (
     <Background>
-      <BackButton goBack={() => navigation.navigate("LoginScreen")} />
+      <BackButton goBack={() => navigation.navigate("HomeScreen")} />
 
       <Logo />
 
-      <Header>Welcome back</Header>
+      <Header>Granville Biomedical INC.</Header>
 
       <TextInput
         label="Email"
@@ -63,7 +59,7 @@ const LoginScreen = ({ navigation }) => {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-       
+        // autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
       />
@@ -81,27 +77,21 @@ const LoginScreen = ({ navigation }) => {
 
       <View style={styles.forgotPassword}>
         <TouchableOpacity
-        // onPress={() => Actions.forgotpassword()}
+          onPress={() => navigation.navigate("ForgotPasswordScreen")}
         >
           <Text style={styles.label}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
 
-      <Button loading={loading} mode="contained"
-        onPress={() => {
-
-          // _onLoginPressed(); //uncomment it for firebase logic
-          navigation.navigate("LandingScreen");
-        }}
-      >
+      <Button loading={loading} mode="contained" onPress={_onLoginPressed}>
         Login
       </Button>
 
       <View style={styles.row}>
         <Text style={styles.label}>Don’t have an account? </Text>
-        {/* <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
           <Text style={styles.link}>Sign up</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
 
       <Toast message={error} onDismiss={() => setError("")} />
