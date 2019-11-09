@@ -39,6 +39,13 @@ const LoginScreen = ({ navigation }) => {
 
     if (response.error) {
       setError(response.error);
+    }
+
+    setLoading(false);
+  };
+
+    if (response.error) {
+      setError(response.error);
       console.log("login failed");
     }else{
       console.log("Login success");
@@ -95,9 +102,9 @@ const LoginScreen = ({ navigation }) => {
 
       <View style={styles.row}>
         <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+        {<TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
           <Text style={styles.link}>Sign up</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> }
       </View>
 
       <Toast message={error} onDismiss={() => setError("")} />
