@@ -4,6 +4,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView
 } from "react-native";
+import { AuthSession } from "expo";
 
 const Background = ({ children }) => (
   <ImageBackground
@@ -21,10 +22,12 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     width: "100%",
+    
     backgroundColor:"#8385ad",
   },
   container: {
     backgroundColor:"#b8b8d2",
+    height: "auto",
     flex: 1,
     padding: 20,
     width: "100%",
