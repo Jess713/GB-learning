@@ -39,13 +39,6 @@ const LoginScreen = ({ navigation }) => {
 
     if (response.error) {
       setError(response.error);
-    }
-
-    setLoading(false);
-  };
-
-    if (response.error) {
-      setError(response.error);
       console.log("login failed");
     }else{
       console.log("Login success");
