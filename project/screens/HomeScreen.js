@@ -9,7 +9,7 @@ import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
 
 export default class App extends Component {
    static navigationOptions ={
-    title: "Granville Biomedical Inc.",
+    title: "Granville Biomedical INC.",
     headerTitleStyle: { textAlign: 'center',flex:1},
     
   };
