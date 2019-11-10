@@ -1,7 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import { FIREBASE_CONFIG } from "../core/config";
-import { userInfo } from "os";
 
 export const logoutUser = () => {
   firebase.auth().signOut();
