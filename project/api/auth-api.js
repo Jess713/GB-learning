@@ -8,48 +8,19 @@ export const logoutUser = () => {
 };
 
 export const signInUser = async ({ name, email, password }) => {
-  // if (!firebase.apps.length) {
-  //     // firebase.initializeApp({});
-  //     firebase.initializeApp(FIREBASE_CONFIG);
-  //     console.log("user found");
-  // }
 
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-    // console.log(firebase.auth().currentUser.uid,"hellol----");
     firebase.auth().currentUser.updateProfile({
       displayName: name,
     });
-    if (!firebase.apps.length) {
-    
-      firebase.initializeApp(FIREBASE_CONFIG);
-      console.log("init again");
-    }
-      let userId= firebase.auth().currentUser.uid;
+  
+    let userId= firebase.auth().currentUser.uid;
 
     firebase.database().ref('users/' + userId).set({
       productType: "hello"
     })
-
-    // firebase.database().ref('users/').push({
-    //   userName : name,
-    //   emailName : email,
-    //   productType : product
-    // });
-
-    // firebase.database().ref(url).push(jsonObject).
-    //   then((data) => {
-    //     dispatch({ type: "FULFILLED" })
-    //     //success
-    //   }).
-    //   catch((err) => {
-    //     dispatch({ type: "REJECTED" })
-    //     //error
-    //   });
-
-
-
 
     return {};
   } catch (error) {
