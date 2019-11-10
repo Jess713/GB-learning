@@ -13,19 +13,27 @@ const DATA = [
     id: 'first', //has to be string here for id
     title: 'Anatomical Models',
   },
-  {
-    id: 'second',
-    title: 'Surgical Task Trainers',
-  },
-  {
-    id: 'third',
-    title: 'Patient Education',
-  },
+  
+  
   // {
   //   id: 'fourth',
   //   title: 'Fourth Item',
   // },
 ];
+
+const DATA2 = [
+  {
+    id: 'second',
+    title: 'Surgical Task Trainers',
+  }
+];
+
+const DATA3 =[
+  {
+    id: 'third',
+    title: 'Patient Education',
+  },
+]
 
 function Item({ id, title, selected, onSelect }) {
   return (
@@ -35,9 +43,32 @@ function Item({ id, title, selected, onSelect }) {
     >
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
+
   );
 }
 
+function Item2({ id, title, selected, onSelect }) {
+  return (
+    <TouchableOpacity
+      onPress={() => onSelect(id)}
+      style={styles.item2}
+    >
+      <Text style={styles.title}>{title}</Text>
+    </TouchableOpacity>
+
+  );
+}
+function Item3({ id, title, selected, onSelect }) {
+  return (
+    <TouchableOpacity
+      onPress={() => onSelect(id)}
+      style={styles.item3}
+    >
+      <Text style={styles.title}>{title}</Text>
+    </TouchableOpacity>
+
+  );
+}
 
 
 // export default function LandingScreen() {
@@ -75,7 +106,34 @@ function Item({ id, title, selected, onSelect }) {
         keyExtractor={item => item.id}
         extraData={selected}
       />
+      <FlatList
+        data={DATA2}
+        renderItem={({ item }) => (
+          <Item2
+            id={item.id}
+            title={item.title}
+            selected={selected.get(item.id)}
+            onSelect={onSelect}
+          />
+        )}
+        keyExtractor={item => item.id}
+        extraData={selected}
+      />
+      <FlatList
+        data={DATA3}
+        renderItem={({ item }) => (
+          <Item3
+            id={item.id}
+            title={item.title}
+            selected={selected.get(item.id)}
+            onSelect={onSelect}
+          />
+        )}
+        keyExtractor={item => item.id}
+        extraData={selected}
+      />
     </SafeAreaView>
+
   );
 }
 LandingScreen.navigationOptions = {
@@ -87,8 +145,10 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     marginTop: Constants.statusBarHeight,
+    flexDirection:"row",
     //display:"flex",
     //flexDirection:"row",
+    
     
     alignItems:'center',
     justifyContent:'center',
@@ -97,16 +157,50 @@ const styles = StyleSheet.create({
   item: {
     //height:300,
     //display:"flex",
-    width:"100%",
+    //width:"100%",
+    alignItems:'center',
+    justifyContent:'center',
     flex:1,
+    width:150,
     backgroundColor: '#8c7ba8',
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    //marginVertical: 8,
+    marginHorizontal: 10,
+    justifyContent:'center',
+    
+    
     //display:"flex",
   },
+  item2: {
+    //height:300,
+    //display:"flex",
+    //width:"100%",
+    alignItems:'center',
+    justifyContent:'center',
+    flex:1,
+    width:150,
+    backgroundColor: '#8c7ba8',
+    padding: 20,
+    //marginVertical: 8,
+    marginHorizontal: 10,
+    justifyContent:'center',
+  },
+  item3: {
+    //height:300,
+    //display:"flex",
+    //width:"100%",
+    alignItems:'center',
+    justifyContent:'center',
+    flex:1,
+    width:150,
+    backgroundColor: '#8c7ba8',
+    padding: 20,
+    //marginVertical: 8,
+    marginHorizontal: 10,
+    justifyContent:'center',
+  },
   title: {
-    fontSize: 32,
+    fontSize: 16,
     color: 'white',
   },
 });
