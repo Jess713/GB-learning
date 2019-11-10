@@ -10,15 +10,9 @@ const PLAYLIST_4 = "PLANMHOrJaFxNPB0dHFRJKiDkrAuQqkBs3";
 const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
 export default class VideoList extends Component<{}> {
 
-
-
   VideoList() {
     this.props.navigation.navigate('VideoList');
   }
-
-
-
-
 
   componentWillMount() {
     this.fetchPlaylistData();
@@ -48,6 +42,7 @@ export default class VideoList extends Component<{}> {
       videos: [],
     }
   }
+
   watchVideo(video_url) {
     // Actions.watchvideo({video_url: video_url});
     this.props.navigation.navigate('WatchVideo', { video_url: video_url });
@@ -98,7 +93,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 12,
     height: 44,
-  },
+  }
 });
 
 VideoList.navigationOptions = {

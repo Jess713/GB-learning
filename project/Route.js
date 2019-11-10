@@ -6,6 +6,7 @@ import WatchVideo from './screens/Video';
 import LandingScreen from './screens/LandingScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -17,6 +18,7 @@ const MainNavigator = createStackNavigator(
     LandingScreen: {screen: LandingScreen},
     VideoList: {screen: VideoList},
     WatchVideo: {screen: WatchVideo},
+    ForgotPasswordScreen: {screen: ForgotPasswordScreen}
   }
 );
 const Routes = createAppContainer(MainNavigator);

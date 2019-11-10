@@ -5,12 +5,14 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  View
 } from 'react-native';
 import Constants from 'expo-constants';
+import { app } from 'firebase';
 
 const DATA = [
   {
-    id: 'first', //has to be string here for id
+    id: 'first',
     title: 'First Item',
   },
   {
@@ -38,27 +40,35 @@ function Item({ id, title, selected, onSelect }) {
   );
 }
 
-
-
 // export default function LandingScreen() {
-  const LandingScreen = ({navigation})=>{
+const LandingScreen = ({ navigation }) => {
   const [selected, setSelected] = React.useState(new Map());
 
   const onSelect = React.useCallback(
     id => {
       const newSelected = new Map(selected);
       newSelected.set(id, !selected.get(id));
-    //   alert(id);
+      //   alert(id);
 
       setSelected(newSelected);
       // Actions.videolist({pressed: id});
-      navigation.navigate('VideoList',{pressed: id});
+      navigation.navigate('VideoList', { pressed: id });
     },
     [selected],
   );
 
   return (
     <SafeAreaView style={styles.container}>
+    <View
+      style={{
+        flexDirection: 'row',
+        height: 100,
+        padding: 20,
+      }}>
+      <View style={{backgroundColor: 'blue', flex: 0.3}} />
+      <View style={{backgroundColor: 'red', flex: 0.5}} />
+      <Text>Hello World!</Text>
+    </View>
       <FlatList
         data={DATA}
         renderItem={({ item }) => (
@@ -92,4 +102,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
 export default memo(LandingScreen);

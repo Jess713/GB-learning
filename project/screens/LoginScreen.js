@@ -59,7 +59,7 @@ const LoginScreen = ({ navigation }) => {
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
-        // autoCompleteType="email"
+        autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
       />
@@ -77,7 +77,9 @@ const LoginScreen = ({ navigation }) => {
 
       <View style={styles.forgotPassword}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("ForgotPasswordScreen")}
+         onPress={() => 
+          navigation.navigate("ForgotPasswordScreen")
+        }
         >
           <Text style={styles.label}>Forgot your password?</Text>
         </TouchableOpacity>

@@ -9,7 +9,6 @@ export default function LinksScreen() {
       <Text style={styles.header}>Registration</Text>
 
       <TextInput style={styles.textinput}placeholder="Your name" underlineColorAndroid={'transparent'}/>
-
       <TextInput style={styles.textinput}placeholder="Your Email" underlineColorAndroid={'transparent'}/>
       <TextInput style={styles.textinput}placeholder="Your Password" underlineColorAndroid={'transparent'}/>
 
