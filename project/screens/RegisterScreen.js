@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Picker} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Picker } from "react-native";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
+import RNPickerSelect from 'react-native-picker-select';
 import {
   emailValidator,
   passwordValidator,
@@ -15,21 +16,18 @@ import {
 import { signInUser } from "../api/auth-api";
 import firebase from "firebase/app";
 import Toast from "../components/Toast";
-
-export const productName = "";
-
+let productName;
+const setProductName = (val) => {
+  productName = val;
+};
 const RegisterScreen = ({ navigation }) => {
 
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
-  const [product, setProduct] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // const setVal = (val)=>{
-  //   this.setState({language:val});
-  // }
   const _onSignUpPressed = async () => {
     if (loading) return;
 
@@ -45,32 +43,17 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     setLoading(true);
-   // var pickerVal;
     const response = await signInUser({
       name: name.value,
       email: email.value,
       password: password.value,
-      product : product.value
+      product: productName,
     });
 
     if (response.error) {
       setError(response.error);
     }
-
     setLoading(false);
-
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //      console.log("user ",user);
-    //     // User is logged in
-    //     navigation.navigate("LandingScreen");
-    //   } else {
-    //     // User is not logged in
-    //     console.log("user ",user);
-    //     console.log("SIGN UP FAILL");
-    //     navigation.navigate("LoginScreen");
-    //   }
-    // });
 
     var user = firebase.auth().currentUser;
 
@@ -78,26 +61,20 @@ const RegisterScreen = ({ navigation }) => {
       console.log("logged in");
       // resetAction;
       navigation.navigate("App");
-      
-      
-    // User is signed in.
     } else {
       console.log("not logged in");
-
-    // No user is signed in.
     }
-
   };
+
 
 
 
   return (
     <Background>
-      <BackButton goBack={() => navigation.navigate("HomeScreen")} />
-
+      {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
       <Logo />
 
-      <Header>Create Account</Header>
+      <Header style={{marginTop:-30, color:"#363c74"}}>Create Account</Header>
 
       <TextInput
         label="Name"
@@ -132,42 +109,28 @@ const RegisterScreen = ({ navigation }) => {
         autoCapitalize="none"
       />
 
-      <TextInput
-        label="ProductName"
-        returnKeyType="done"
-        value={product.value}
-        onChangeText={text => setProduct({ value: text, error: ""})}
-        secureTextEntry
-        autoCapitalize="none"
-      />
-      
- <View style={styles.Container}>
-    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-      <View style={{flex:.5}}>
-        <Text>Select your product:</Text>
+
+      <View style={styles.Container}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.label}>
+            <Text style={{fontFamily: 'arial',color:'#363c74'}}>Select your product:</Text>
+          </View>
+          <View style={{ maxWidth: 170, marginLeft: 30 }}>
+            <RNPickerSelect
+              placeholder={{ label: 'Select item...', value: 'N/A' }}
+              onValueChange={(value) => setProductName(value)}
+              items={[
+                { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim' },
+                { label: 'Fetal Skull', value: 'FetalSkull' },
+                { label: 'FistulaSim', value: 'FistSim' },
+                { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT' },
+                { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT' },
+              ]}
+            />
+
+          </View>
+        </View>
       </View>
-      <View style={{flex:.5}}>
-      <Picker
-        // selectedValue={this.state.language}
-        selectedValue = {()=>{this.state.language}}
-        style={{height: 50, width: 225}}
-        // onValueChange={(itemValue, itemIndex) =>
-          // this.setState({language: itemValue})}
-          onValueChange={(itemValue)=>{console.log("here",itemValue);
-          productName = itemValue;
-          // itemValue = {product.itemValue}
-          // onValueChange= {text => setProduct({ itemValue: text, error: ""})}
-         }}
-        >
-        <Picker.Item label="EpiSim Suturing Task Trainer" value="EpiSim" />
-        <Picker.Item label="Fetal Skull" value="FetalSkull" />
-        <Picker.Item label="FistulaSim" value="FistSim" />
-        <Picker.Item label="OasisSim Obstetrics Simulation Task Trainer" value="OOSTT" />
-        <Picker.Item label="PeriSim Obstetrics Simulation Task Trainer" value="POSTT" />
-      </Picker>
-      </View>
-    </View>
-  </View>
       <Button
         loading={loading}
         mode="contained"
@@ -178,7 +141,7 @@ const RegisterScreen = ({ navigation }) => {
       </Button>
 
       <View style={styles.row}>
-        <Text style={styles.label}>Already have an account? </Text>
+        <Text style={{color:"#363c74"}}>Already have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
@@ -187,11 +150,12 @@ const RegisterScreen = ({ navigation }) => {
       <Toast message={error} onDismiss={() => setError("")} />
     </Background>
   );
+
 };
 
 const styles = StyleSheet.create({
   label: {
-    color: theme.colors.secondary
+    
   },
   button: {
     marginTop: 24
@@ -202,7 +166,8 @@ const styles = StyleSheet.create({
   },
   link: {
     fontWeight: "bold",
-    color: theme.colors.primary
+    color: "#363c74",
+   
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import {StackActions} from 'react-navigation';
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import Background from "../components/Background";
@@ -12,11 +12,14 @@ import { emailValidator, passwordValidator } from "../core/utils";
 import { loginUser } from "../api/auth-api";
 import Toast from "../components/Toast";
 
+
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [toast, setToast] = useState({ value: "", type: "" });
+  
 
   const _onLoginPressed = async () => {
     if (loading) return;
@@ -39,14 +42,16 @@ const LoginScreen = ({ navigation }) => {
 
     if (response.error) {
       setError(response.error);
+      setToast({ type: "error", value: response.error });
       console.log("login failed");
     }else{
       console.log("Login success");
-      navigation.navigate("App");
+      setTimeout(()=>navigation.navigate("App"),1000);
       // resetAction;
     }
 
     setLoading(false);
+   
   };
 
   return (
@@ -55,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
 
       <Logo />
 
-      <Header>Granville Biomedical INC.</Header>
+      {/* <Header>Granville Biomedical INC.</Header> */}
 
       <TextInput
         label="Email"
@@ -100,7 +105,11 @@ const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <Toast message={error} onDismiss={() => setError("")} />
+      <Toast
+        type={toast.type}
+        message={toast.value}
+        onDismiss={() => setToast({ value: "", type: "" })}
+      />
     </Background>
   );
 };

@@ -6,7 +6,7 @@ export const logoutUser = () => {
   firebase.auth().signOut();
 };
 
-export const signInUser = async ({ name, email, password }) => {
+export const signInUser = async ({ name, email, password, product }) => {
 
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -14,11 +14,13 @@ export const signInUser = async ({ name, email, password }) => {
     firebase.auth().currentUser.updateProfile({
       displayName: name,
     });
-  
-    let userId= firebase.auth().currentUser.uid;
+
+    let userId = firebase.auth().currentUser.uid;
 
     firebase.database().ref('users/' + userId).set({
-      productType: "hello"
+      name: name,
+      email: email,
+      productType: product
     })
 
     return {};
@@ -97,7 +99,7 @@ export const sendEmailWithPassword = async email => {
           error: "Too many request. Try again in a minute."
         };
       default:
-        console.log("hello", error.code);
+        console.log("---error.code", error.code);
         return {
 
           error: "Check your internet connection."

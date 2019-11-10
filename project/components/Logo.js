@@ -1,15 +1,18 @@
 import React, { memo } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet,View } from 'react-native';
 
 const Logo = () => (
-  <Image source={require('../assets/logo.png')} style={styles.image} />
+  <View>
+    <Image source={require('../assets/thumbnail_GB_Logo_EN.png')} style={styles.image} />
+  </View>
 );
 
 const styles = StyleSheet.create({
   image: {
-    width: 128,
-    height: 150,
-    marginBottom: 12,
+    flex: 1,
+    width: 300,
+    height: 300,
+    resizeMode: 'contain'
   },
 });
 

@@ -8,11 +8,11 @@ const Header = ({ children }) =>
 const styles = StyleSheet.create({
   header: {
     fontSize: 26,
-    //fontFamily:'Jomolhari',
-    fontFamily:'Arial',
-    color: "rgb(147,143,180)",
+    fontFamily: 'arial',
+    color: "#363c74",
     fontWeight: "bold",
     paddingVertical: 14,
+    marginTop:-30,
 
   }
 });
