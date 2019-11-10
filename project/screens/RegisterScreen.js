@@ -22,7 +22,10 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  // const resetAction = StackActions.reset({
+  //   index: 0,
+  //   actions: [navigation.navigate("LandingScreen")],
+  // });
   const _onSignUpPressed = async () => {
     if (loading) return;
 
@@ -51,18 +54,33 @@ const RegisterScreen = ({ navigation }) => {
 
     setLoading(false);
 
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-         console.log("user ",user);
-        // User is logged in
-        navigation.navigate("LandingScreen");
-      } else {
-        // User is not logged in
-        console.log("SIGN UP FAILLLLLLLLLLLLLLLLLLLLL");
-        navigation.navigate("LoginScreen");
-      }
-    });
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //      console.log("user ",user);
+    //     // User is logged in
+    //     navigation.navigate("LandingScreen");
+    //   } else {
+    //     // User is not logged in
+    //     console.log("user ",user);
+    //     console.log("SIGN UP FAILL");
+    //     navigation.navigate("LoginScreen");
+    //   }
+    // });
 
+    var user = firebase.auth().currentUser;
+
+    if (user) {
+      console.log("logged in");
+      // resetAction;
+      navigation.navigate("App");
+      
+      
+    // User is signed in.
+    } else {
+      console.log("not logged in");
+
+    // No user is signed in.
+    }
 
   };
 

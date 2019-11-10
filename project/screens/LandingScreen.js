@@ -11,20 +11,20 @@ import Constants from 'expo-constants';
 const DATA = [
   {
     id: 'first', //has to be string here for id
-    title: 'First Item',
+    title: 'Anatomical Models',
   },
   {
     id: 'second',
-    title: 'Second Item',
+    title: 'Surgical Task Trainers',
   },
   {
     id: 'third',
-    title: 'Third Item',
+    title: 'Patient Education',
   },
-  {
-    id: 'fourth',
-    title: 'Fourth Item',
-  },
+  // {
+  //   id: 'fourth',
+  //   title: 'Fourth Item',
+  // },
 ];
 
 function Item({ id, title, selected, onSelect }) {
@@ -41,7 +41,7 @@ function Item({ id, title, selected, onSelect }) {
 
 
 // export default function LandingScreen() {
-  const LandingScreen = ({navigation})=>{
+  const LandingScreen = ({navigation,navigationOptions})=>{
   const [selected, setSelected] = React.useState(new Map());
 
   const onSelect = React.useCallback(
@@ -75,7 +75,11 @@ function Item({ id, title, selected, onSelect }) {
     </SafeAreaView>
   );
 }
+LandingScreen.navigationOptions = {
+  title: 'Home',
+  headerLeft: null,
 
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,

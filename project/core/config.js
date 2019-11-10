@@ -1,4 +1,5 @@
 // Replace with your own firebase config!
+import * as firebase from 'firebase';
 export const FIREBASE_CONFIG = {
     apiKey: "AIzaSyByL_o7zEHpO6WlhXL7cQzxDNf8hpbu-Sc",
     authDomain: "react-native-market-2861b.firebaseapp.com",
@@ -9,3 +10,4 @@ export const FIREBASE_CONFIG = {
     appId: "1:878215484396:web:c36074bccb0b5693b0a6c9",
     measurementId: "G-317PLP59P2"
   };
+  firebase.initializeApp(FIREBASE_CONFIG);

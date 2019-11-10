@@ -1,4 +1,5 @@
 import React, { memo, useState } from "react";
+import {StackActions} from 'react-navigation';
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
@@ -38,6 +39,11 @@ const LoginScreen = ({ navigation }) => {
 
     if (response.error) {
       setError(response.error);
+      console.log("login failed");
+    }else{
+      console.log("Login success");
+      navigation.navigate("App");
+      // resetAction;
     }
 
     setLoading(false);
@@ -45,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <Background>
-      <BackButton goBack={() => navigation.navigate("HomeScreen")} />
+      {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
 
       <Logo />
 

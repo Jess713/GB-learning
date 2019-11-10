@@ -7,11 +7,11 @@ export const logoutUser = () => {
 };
 
 export const signInUser = async ({ name, email, password }) => {
-    if (!firebase.apps.length) {
-        // firebase.initializeApp({});
-        firebase.initializeApp(FIREBASE_CONFIG);
-        console.log("user found");
-    }
+    // if (!firebase.apps.length) {
+    //     // firebase.initializeApp({});
+    //     firebase.initializeApp(FIREBASE_CONFIG);
+    //     console.log("user found");
+    // }
     
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -96,7 +96,9 @@ export const sendEmailWithPassword = async email => {
           error: "Too many request. Try again in a minute."
         };
       default:
+          console.log("hello",error.code);
         return {
+            
           error: "Check your internet connection."
         };
     }
