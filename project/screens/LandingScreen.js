@@ -58,6 +58,9 @@ function Item({ id, title, selected, onSelect }) {
   );
 
   return (
+    // <View>
+    //   <Text> asbd" </Text>
+    // </View>
     <SafeAreaView style={styles.container}>
       <FlatList
         data={DATA}
@@ -85,15 +88,16 @@ const styles = StyleSheet.create({
     flex:1,
     marginTop: Constants.statusBarHeight,
     //display:"flex",
-    flexDirection:"row",
-    maxWidth:400,
+    //flexDirection:"row",
+    
     alignItems:'center',
     justifyContent:'center',
-    height:700,
+    //height:700,
   },
   item: {
-    height:300,
-    display:"flex",
+    //height:300,
+    //display:"flex",
+    width:"100%",
     flex:1,
     backgroundColor: '#8c7ba8',
     padding: 20,

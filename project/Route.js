@@ -16,6 +16,7 @@ const AuthStack = createStackNavigator(
     LoginScreen:{screen: LoginScreen},
     RegisterScreen: {screen: RegisterScreen},
     ForgotPasswordScreen: {screen: ForgotPasswordScreen},
+    
   }
 );
 const MainNavigator = createStackNavigator(
