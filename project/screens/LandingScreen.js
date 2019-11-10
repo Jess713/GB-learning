@@ -80,12 +80,13 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     marginTop: Constants.statusBarHeight,
-    //display:"flex",
-    flexDirection:"row",
-    maxWidth:400,
+    display:"flex",
+    //flexDirection:"",
+    //maxWidth:400,
     alignItems:'center',
     justifyContent:'center',
-    height:700,
+    //height:700,
+
   },
   item: {
     height:300,
