@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import { FIREBASE_CONFIG } from "../core/config";
+import { userInfo } from "os";
 
 export const logoutUser = () => {
   firebase.auth().signOut();
@@ -15,11 +16,35 @@ export const signInUser = async ({ name, email, password }) => {
     
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+    // console.log(firebase.auth().currentUser.uid,"hellol----");
     firebase.auth().currentUser.updateProfile({
-      displayName: name
+      displayName: name,
     });
 
+    // firebase.database().ref('users/' + userId).set({
+    //   productType: product
+    // })
+
+      // firebase.database().ref('users/').push({
+      //   userName : name,
+      //   emailName : email,
+      //   productType : product
+      // });
+
+      firebase.database().ref(url).push(jsonObject).
+      then((data) => {
+       dispatch({type:"FULFILLED"})
+       //success
+      }).
+      catch((err) => {        
+       dispatch({type:"REJECTED"})
+       //error
+      });
     
+    
+
+
     return {};
   } catch (error) {
     switch (error.code) {

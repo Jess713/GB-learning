@@ -16,11 +16,14 @@ import { signInUser } from "../api/auth-api";
 import firebase from "firebase/app";
 import Toast from "../components/Toast";
 
+export const productName = "";
+
 const RegisterScreen = ({ navigation }) => {
 
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [product, setProduct] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -42,11 +45,12 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     setLoading(true);
-    var pickerVal;
+   // var pickerVal;
     const response = await signInUser({
       name: name.value,
       email: email.value,
-      password: password.value
+      password: password.value,
+      product : product.value
     });
 
     if (response.error) {
@@ -127,6 +131,16 @@ const RegisterScreen = ({ navigation }) => {
         secureTextEntry
         autoCapitalize="none"
       />
+
+      <TextInput
+        label="ProductName"
+        returnKeyType="done"
+        value={product.value}
+        onChangeText={text => setProduct({ value: text, error: ""})}
+        secureTextEntry
+        autoCapitalize="none"
+      />
+      
  <View style={styles.Container}>
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <View style={{flex:.5}}>
@@ -140,6 +154,9 @@ const RegisterScreen = ({ navigation }) => {
         // onValueChange={(itemValue, itemIndex) =>
           // this.setState({language: itemValue})}
           onValueChange={(itemValue)=>{console.log("here",itemValue);
+          productName = itemValue;
+          // itemValue = {product.itemValue}
+          // onValueChange= {text => setProduct({ itemValue: text, error: ""})}
          }}
         >
         <Picker.Item label="EpiSim Suturing Task Trainer" value="EpiSim" />
