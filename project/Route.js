@@ -12,7 +12,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 const AuthStack = createStackNavigator(
   {
     //Debugging Landing Screen, so I put Landing screen as the top.
-    LandingScreen: {screen: LandingScreen},
+
     LoginScreen:{screen: LoginScreen},
     RegisterScreen: {screen: RegisterScreen},
     ForgotPasswordScreen: {screen: ForgotPasswordScreen},

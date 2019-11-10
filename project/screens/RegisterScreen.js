@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Picker} from "react-native";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -16,16 +16,20 @@ import { signInUser } from "../api/auth-api";
 import firebase from "firebase/app";
 import Toast from "../components/Toast";
 
+export const productName = "";
+
 const RegisterScreen = ({ navigation }) => {
+
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [product, setProduct] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // const resetAction = StackActions.reset({
-  //   index: 0,
-  //   actions: [navigation.navigate("LandingScreen")],
-  // });
+
+  // const setVal = (val)=>{
+  //   this.setState({language:val});
+  // }
   const _onSignUpPressed = async () => {
     if (loading) return;
 
@@ -41,11 +45,12 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     setLoading(true);
-
+   // var pickerVal;
     const response = await signInUser({
       name: name.value,
       email: email.value,
-      password: password.value
+      password: password.value,
+      product : product.value
     });
 
     if (response.error) {
@@ -127,6 +132,42 @@ const RegisterScreen = ({ navigation }) => {
         autoCapitalize="none"
       />
 
+      <TextInput
+        label="ProductName"
+        returnKeyType="done"
+        value={product.value}
+        onChangeText={text => setProduct({ value: text, error: ""})}
+        secureTextEntry
+        autoCapitalize="none"
+      />
+      
+ <View style={styles.Container}>
+    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View style={{flex:.5}}>
+        <Text>Select your product:</Text>
+      </View>
+      <View style={{flex:.5}}>
+      <Picker
+        // selectedValue={this.state.language}
+        selectedValue = {()=>{this.state.language}}
+        style={{height: 50, width: 225}}
+        // onValueChange={(itemValue, itemIndex) =>
+          // this.setState({language: itemValue})}
+          onValueChange={(itemValue)=>{console.log("here",itemValue);
+          productName = itemValue;
+          // itemValue = {product.itemValue}
+          // onValueChange= {text => setProduct({ itemValue: text, error: ""})}
+         }}
+        >
+        <Picker.Item label="EpiSim Suturing Task Trainer" value="EpiSim" />
+        <Picker.Item label="Fetal Skull" value="FetalSkull" />
+        <Picker.Item label="FistulaSim" value="FistSim" />
+        <Picker.Item label="OasisSim Obstetrics Simulation Task Trainer" value="OOSTT" />
+        <Picker.Item label="PeriSim Obstetrics Simulation Task Trainer" value="POSTT" />
+      </Picker>
+      </View>
+    </View>
+  </View>
       <Button
         loading={loading}
         mode="contained"

@@ -7,19 +7,20 @@ export const logoutUser = () => {
 };
 
 export const signInUser = async ({ name, email, password }) => {
-    // if (!firebase.apps.length) {
-    //     // firebase.initializeApp({});
-    //     firebase.initializeApp(FIREBASE_CONFIG);
-    //     console.log("user found");
-    // }
-    
+
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
-    firebase.auth().currentUser.updateProfile({
-      displayName: name
-    });
 
-    
+    firebase.auth().currentUser.updateProfile({
+      displayName: name,
+    });
+  
+    let userId= firebase.auth().currentUser.uid;
+
+    firebase.database().ref('users/' + userId).set({
+      productType: "hello"
+    })
+
     return {};
   } catch (error) {
     switch (error.code) {
@@ -40,9 +41,9 @@ export const signInUser = async ({ name, email, password }) => {
           error: "Too many request. Try again in a minute."
         };
       default:
-          console.log(error.code,"----error");
-          console.log(error.message,"----msg");
-          console.log(error,"-----");
+        console.log(error.code, "----error");
+        console.log(error.message, "----msg");
+        console.log(error, "-----");
         return {
           error: "Check your internet connection."
         };
@@ -96,9 +97,9 @@ export const sendEmailWithPassword = async email => {
           error: "Too many request. Try again in a minute."
         };
       default:
-          console.log("hello",error.code);
+        console.log("hello", error.code);
         return {
-            
+
           error: "Check your internet connection."
         };
     }

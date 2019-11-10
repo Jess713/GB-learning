@@ -2,12 +2,14 @@
 import * as firebase from 'firebase';
 export const FIREBASE_CONFIG = {
     apiKey: "AIzaSyByL_o7zEHpO6WlhXL7cQzxDNf8hpbu-Sc",
-    authDomain: "react-native-market-2861b.firebaseapp.com",
-    databaseURL: "https://react-native-market-2861b.firebaseio.com",
-    projectId: "react-native-market-2861b",
-    storageBucket: "react-native-market-2861b.appspot.com",
-    messagingSenderId: "878215484396",
-    appId: "1:878215484396:web:c36074bccb0b5693b0a6c9",
-    measurementId: "G-317PLP59P2"
+    authDomain: "granville-biomedical-v2.firebaseapp.com",
+    databaseURL: "https://granville-biomedical-v2.firebaseio.com",
+    projectId: "granville-biomedical-v2",
+    storageBucket: "granville-biomedical-v2.appspot.com",
+    messagingSenderId: "550133149795",
+    appId: "1:550133149795:web:6735212a3513606c898856",
+    measurementId: "G-R2V1WJNMZJ"
   };
   firebase.initializeApp(FIREBASE_CONFIG);
+
+
