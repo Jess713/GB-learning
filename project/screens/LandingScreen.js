@@ -65,7 +65,7 @@ function Item({ id, title, selected, onSelect }) {
           <Item
             id={item.id}
             title={item.title}
-            selected={!!selected.get(item.id)}
+            selected={selected.get(item.id)}
             onSelect={onSelect}
           />
         )}
@@ -78,14 +78,24 @@ function Item({ id, title, selected, onSelect }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     marginTop: Constants.statusBarHeight,
+    //display:"flex",
+    flexDirection:"row",
+    maxWidth:400,
+    alignItems:'center',
+    justifyContent:'center',
+    height:700,
   },
   item: {
+    height:300,
+    display:"flex",
+    flex:1,
     backgroundColor: '#8c7ba8',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    //display:"flex",
   },
   title: {
     fontSize: 32,
