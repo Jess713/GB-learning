@@ -8,12 +8,12 @@ export const logoutUser = () => {
 };
 
 export const signInUser = async ({ name, email, password }) => {
-    // if (!firebase.apps.length) {
-    //     // firebase.initializeApp({});
-    //     firebase.initializeApp(FIREBASE_CONFIG);
-    //     console.log("user found");
-    // }
-    
+  // if (!firebase.apps.length) {
+  //     // firebase.initializeApp({});
+  //     firebase.initializeApp(FIREBASE_CONFIG);
+  //     console.log("user found");
+  // }
+
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
 
@@ -21,28 +21,34 @@ export const signInUser = async ({ name, email, password }) => {
     firebase.auth().currentUser.updateProfile({
       displayName: name,
     });
-
-    // firebase.database().ref('users/' + userId).set({
-    //   productType: product
-    // })
-
-      // firebase.database().ref('users/').push({
-      //   userName : name,
-      //   emailName : email,
-      //   productType : product
-      // });
-
-      firebase.database().ref(url).push(jsonObject).
-      then((data) => {
-       dispatch({type:"FULFILLED"})
-       //success
-      }).
-      catch((err) => {        
-       dispatch({type:"REJECTED"})
-       //error
-      });
+    if (!firebase.apps.length) {
     
-    
+      firebase.initializeApp(FIREBASE_CONFIG);
+      console.log("init again");
+    }
+      let userId= firebase.auth().currentUser.uid;
+
+    firebase.database().ref('users/' + userId).set({
+      productType: "hello"
+    })
+
+    // firebase.database().ref('users/').push({
+    //   userName : name,
+    //   emailName : email,
+    //   productType : product
+    // });
+
+    // firebase.database().ref(url).push(jsonObject).
+    //   then((data) => {
+    //     dispatch({ type: "FULFILLED" })
+    //     //success
+    //   }).
+    //   catch((err) => {
+    //     dispatch({ type: "REJECTED" })
+    //     //error
+    //   });
+
+
 
 
     return {};
@@ -65,9 +71,9 @@ export const signInUser = async ({ name, email, password }) => {
           error: "Too many request. Try again in a minute."
         };
       default:
-          console.log(error.code,"----error");
-          console.log(error.message,"----msg");
-          console.log(error,"-----");
+        console.log(error.code, "----error");
+        console.log(error.message, "----msg");
+        console.log(error, "-----");
         return {
           error: "Check your internet connection."
         };
@@ -121,9 +127,9 @@ export const sendEmailWithPassword = async email => {
           error: "Too many request. Try again in a minute."
         };
       default:
-          console.log("hello",error.code);
+        console.log("hello", error.code);
         return {
-            
+
           error: "Check your internet connection."
         };
     }
