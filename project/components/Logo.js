@@ -9,9 +9,9 @@ const Logo = () => (
 
 const styles = StyleSheet.create({
   image: {
-    flex: 1,
-    width: 300,
-    height: 300,
+    // flex: 1,
+    width: 230,
+    height: 230,
     resizeMode: 'contain'
   },
 });

@@ -8,7 +8,7 @@ const Header = ({ children }) =>
 const styles = StyleSheet.create({
   header: {
     fontSize: 26,
-    fontFamily: 'arial',
+    // fontFamily: 'arial',
     color: "#363c74",
     fontWeight: "bold",
     paddingVertical: 14,

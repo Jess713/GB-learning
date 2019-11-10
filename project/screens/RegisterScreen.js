@@ -74,7 +74,7 @@ const RegisterScreen = ({ navigation }) => {
       {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
       <Logo />
 
-      <Header style={{marginTop:-30, color:"#363c74"}}>Create Account</Header>
+      {/* <Header style={{ marginTop: -30, color: "#363c74" }}>Create Account</Header> */}
 
       <TextInput
         label="Name"
@@ -108,29 +108,19 @@ const RegisterScreen = ({ navigation }) => {
         secureTextEntry
         autoCapitalize="none"
       />
+      
+      <RNPickerSelect
+        placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
+        onValueChange={(value) => setProductName(value)}
+        items={[
+          { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
+          { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
+          { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
+          { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
+          { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
+        ]}
+      />
 
-
-      <View style={styles.Container}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <View style={styles.label}>
-            <Text style={{fontFamily: 'arial',color:'#363c74'}}>Select your product:</Text>
-          </View>
-          <View style={{ maxWidth: 170, marginLeft: 30 }}>
-            <RNPickerSelect
-              placeholder={{ label: 'Select item...', value: 'N/A' }}
-              onValueChange={(value) => setProductName(value)}
-              items={[
-                { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim' },
-                { label: 'Fetal Skull', value: 'FetalSkull' },
-                { label: 'FistulaSim', value: 'FistSim' },
-                { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT' },
-                { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT' },
-              ]}
-            />
-
-          </View>
-        </View>
-      </View>
       <Button
         loading={loading}
         mode="contained"
@@ -141,7 +131,7 @@ const RegisterScreen = ({ navigation }) => {
       </Button>
 
       <View style={styles.row}>
-        <Text style={{color:"#363c74"}}>Already have an account? </Text>
+        <Text style={{ color: "#363c74" }}>Already have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
@@ -155,7 +145,7 @@ const RegisterScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   label: {
-    
+
   },
   button: {
     marginTop: 24
@@ -167,8 +157,12 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: "bold",
     color: "#363c74",
-   
+
   }
 });
+
+RegisterScreen.navigationOptions = {
+  title: 'Create Account',
+};
 
 export default memo(RegisterScreen);

@@ -73,7 +73,12 @@ export default class VideoList extends Component<{}> {
                 onPress={() => this.watchVideo(item.contentDetails.videoId)}
               >
                 <Text
-                  style={styles.item}
+                  style={{
+                    padding: 10,
+                    fontSize: 12,
+                    height: 44,
+                    // fontFamily: 'arial'
+                  }}
                 >
                   {item.snippet.title}
                 </Text>
