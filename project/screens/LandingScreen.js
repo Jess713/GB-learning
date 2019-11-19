@@ -7,7 +7,10 @@ import {
   Text,
 } from 'react-native';
 import Constants from 'expo-constants';
-
+import firebase from "firebase/app";
+// const ref = firestore().collection('categories');
+let videoListsName = [];
+let videoListsURLs = [];
 const DATA = [
   {
     id: 'first', //has to be string here for id
@@ -21,10 +24,6 @@ const DATA = [
     id: 'third',
     title: 'Patient Education',
   },
-  // {
-  //   id: 'fourth',
-  //   title: 'Fourth Item',
-  // },
 ];
 
 function Item({ id, title, selected, onSelect }) {
@@ -38,7 +37,27 @@ function Item({ id, title, selected, onSelect }) {
   );
 }
 
+// async function getDocs(){
+//   const snapshot = await firebase.firestore().collection('categories').get()
+//   return snapshot.docs.map(doc=> 
 
+//     doc.data()
+//   );
+// }
+
+/**
+ * this listens to realtime database firestore
+ * and stores them into arrays.
+ */
+async function getDocs(){
+  const snapshot = await firebase.firestore().collection('categories').onSnapshot((snapshot)=>{
+    snapshot.forEach((doc)=>{
+      videoListsName.push(doc.data().name);
+      videoListsURLs.push(doc.data().URL);
+    });
+  });
+  
+}
 
 // export default function LandingScreen() {
   const LandingScreen = ({navigation,navigationOptions})=>{
@@ -50,12 +69,21 @@ function Item({ id, title, selected, onSelect }) {
       newSelected.set(id, !selected.get(id));
     //   alert(id);
 
+      // getDocs().forEach(element => {
+      //   console.log("hi!",element);
+      const list =[];
+      getDocs();
+      // });
       setSelected(newSelected);
       // Actions.videolist({pressed: id});
       navigation.navigate('VideoList',{pressed: id});
     },
     [selected],
   );
+
+  //  const usersCollectionRef = firestore.collection('categories');
+   
+
 
   return (
     <SafeAreaView style={styles.container}>
