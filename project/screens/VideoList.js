@@ -61,6 +61,7 @@ export default class VideoList extends Component<{}> {
 
   render() {
     const videos = this.state.videos;
+    console.log("videos----",videos);
     return (
       <SafeAreaView style={styles.safeArea}>
         <FlatList

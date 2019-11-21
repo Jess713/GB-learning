@@ -9,8 +9,8 @@ import {
 import Constants from 'expo-constants';
 import firebase from "firebase/app";
 // const ref = firestore().collection('categories');
-let videoListsName = [];
-let videoListsURLs = [];
+let videoListsName = {};
+let videoListsURLs = {};
 const DATA = [
   {
     id: 'first', //has to be string here for id
@@ -50,14 +50,19 @@ function Item({ id, title, selected, onSelect }) {
  * and stores them into arrays.
  */
 async function getDocs(){
+ 
   const snapshot = await firebase.firestore().collection('categories').onSnapshot((snapshot)=>{
+    let counter = 0;
     snapshot.forEach((doc)=>{
-      videoListsName.push(doc.data().name);
+      counter ++;
+      videoListsName.push({id: counter.toString(), title:doc.data().name});
       videoListsURLs.push(doc.data().URL);
     });
   });
   
 }
+
+
 
 // export default function LandingScreen() {
   const LandingScreen = ({navigation,navigationOptions})=>{
@@ -71,8 +76,20 @@ async function getDocs(){
 
       // getDocs().forEach(element => {
       //   console.log("hi!",element);
-      const list =[];
+   
       getDocs();
+      let myJSON = JSON.stringify(videoListsName);
+      console.log("DATA",DATA);
+      console.log("JSON",myJSON);
+      let jsonObj={};
+      
+for (let i = 0; i <videoListsName.length; i++) {
+  console.log(videoListsName[i])
+  console.log("stringyfy",JSON.stringify(videoListsName[i]))
+ 
+}
+      console.log("json",jsonObj);
+      console.log(videoListsURLs);
       // });
       setSelected(newSelected);
       // Actions.videolist({pressed: id});
@@ -89,6 +106,7 @@ async function getDocs(){
     <SafeAreaView style={styles.container}>
       <FlatList
         data={DATA}
+        // keyExtractor={}
         renderItem={({ item }) => (
           <Item
             id={item.id}
