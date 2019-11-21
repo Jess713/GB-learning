@@ -11,9 +11,10 @@ const styles = StyleSheet.create({
   image: {
     // flex: 1,
     width: 230,
-    height: 230,
+    height: 240,
     resizeMode: 'contain'
   },
 });
+
 
 export default memo(Logo);
