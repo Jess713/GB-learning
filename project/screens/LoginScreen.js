@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from "react";
-import {StackActions} from 'react-navigation';
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
+import { StackActions } from 'react-navigation';
+import { TouchableOpacity, StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -19,7 +19,7 @@ const LoginScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [toast, setToast] = useState({ value: "", type: "" });
-  
+
 
   const _onLoginPressed = async () => {
     if (loading) return;
@@ -44,14 +44,14 @@ const LoginScreen = ({ navigation }) => {
       setError(response.error);
       setToast({ type: "error", value: response.error });
       console.log("login failed");
-    }else{
+    } else {
       console.log("Login success");
-      setTimeout(()=>navigation.navigate("App"),1000);
+      setTimeout(() => navigation.navigate("App"), 1000);
       // resetAction;
     }
 
     setLoading(false);
-   
+
   };
 
   return (
@@ -60,56 +60,58 @@ const LoginScreen = ({ navigation }) => {
 
       <Logo />
 
-      {/* <Header>Granville Biomedical INC.</Header> */}
+      {/* <KeyboardAvoidingView behavior="padding" enabled> */}
+      
+          <TextInput
+            label="Email"
+            returnKeyType="next"
+            value={email.value}
+            onChangeText={text => setEmail({ value: text, error: "" })}
+            error={!!email.error}
+            errorText={email.error}
+            autoCapitalize="none"
+            // autoCompleteType="email"
+            textContentType="emailAddress"
+            keyboardType="email-address"
+          />
 
-      <TextInput
-        label="Email"
-        returnKeyType="next"
-        value={email.value}
-        onChangeText={text => setEmail({ value: text, error: "" })}
-        error={!!email.error}
-        errorText={email.error}
-        autoCapitalize="none"
-        // autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-      />
+          <TextInput
+            label="Password"
+            returnKeyType="done"
+            value={password.value}
+            onChangeText={text => setPassword({ value: text, error: "" })}
+            error={!!password.error}
+            errorText={password.error}
+            secureTextEntry
+            autoCapitalize="none"
+          />
 
-      <TextInput
-        label="Password"
-        returnKeyType="done"
-        value={password.value}
-        onChangeText={text => setPassword({ value: text, error: "" })}
-        error={!!password.error}
-        errorText={password.error}
-        secureTextEntry
-        autoCapitalize="none"
-      />
+          <View style={styles.forgotPassword}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ForgotPasswordScreen")}
+            >
+              <Text style={styles.label}>Forgot your password?</Text>
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ForgotPasswordScreen")}
-        >
-          <Text style={styles.label}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Button style={{backgroundColor: "#403a60"}} loading={loading} mode="contained" onPress={_onLoginPressed}>
-        Login
+          <Button style={{ backgroundColor: "#403a60" }} loading={loading} mode="contained" onPress={_onLoginPressed}>
+            Login
       </Button>
 
-      <View style={styles.row}>
-        <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
-          <Text style={styles.link}>Sign up</Text>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Don’t have an account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+              <Text style={styles.link}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
 
-      <Toast
-        type={toast.type}
-        message={toast.value}
-        onDismiss={() => setToast({ value: "", type: "" })}
-      />
+          <Toast
+            type={toast.type}
+            message={toast.value}
+            onDismiss={() => setToast({ value: "", type: "" })}
+          />
+      
+      {/* </KeyboardAvoidingView> */}
     </Background>
   );
 };

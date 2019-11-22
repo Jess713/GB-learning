@@ -18,7 +18,7 @@ import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
 
 const MAX_RESULT = 50;
-const PLAY_LIST_ID = "PLANMHOrJaFxMX3j37_6YIcdcAOll84cX9";
+const PLAY_LIST_ID = "PL7qjIFJDIlAyo6i643xSWzNMgmc75OcWB";
 const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
 
 

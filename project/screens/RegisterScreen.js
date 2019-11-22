@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Picker } from "react-native";
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -77,6 +77,7 @@ const RegisterScreen = ({ navigation }) => {
 
 
   return (
+   
     <ScrollView>
       <Background>
         {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
@@ -152,6 +153,7 @@ const RegisterScreen = ({ navigation }) => {
         />
       </Background>
     </ScrollView>
+    
   );
 
 };

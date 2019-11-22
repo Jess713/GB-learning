@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
 
-import VideoList from './screens/VideoList';
 import WatchVideo from './screens/Video';
 import LandingScreen from './screens/LandingScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -19,7 +18,6 @@ const AuthStack = createStackNavigator(
 const MainNavigator = createStackNavigator(
   {
     LandingScreen: {screen: LandingScreen},
-    VideoList: {screen: VideoList},
     WatchVideo: {screen: WatchVideo},
   }
 );
