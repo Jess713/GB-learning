@@ -5,7 +5,8 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native';
 import Constants from 'expo-constants';
 import { app } from 'firebase';
@@ -15,30 +16,47 @@ import { theme } from "../core/theme";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
-import RNPickerSelect from 'react-native-picker-select';
 let videoName;
 const MAX_RESULT = 50;
 const PLAY_LIST_ID = "PLANMHOrJaFxMSduAFHDUSaG5d7NI1a5SW";
 const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
 
+const DATA = [
+  {
+    id: 'first', //has to be string here for id
+    title: 'Anatomical Models',
+  },
+  {
+    id: 'second',
+    title: 'Surgical Task Trainers',
+  },
+  {
+    id: 'third',
+    title: 'Patient Education',
+  },
+];
+
+
 export default class LandingScreen extends Component<{}> {
-  // watchVideo(video_url) {
-  //   // Actions.watchvideo({video_url: video_url});
-  //   this.props.navigation.navigate('WatchVideo', { video_url: video_url });
-  // }
+  componentWillMount() {
+    this.fetchPlaylistData();
+  }
+
+
   constructor(props) {
     super(props);
     this.state = {
       videos: [],
     }
   }
+
+  watchVideo(val) {
+    this.props.navigation.navigate('WatchVideo', { video_url: val });
+  }
   getPickerVal = (val) => {
     videoName = val;
   };
 
-  componentWillMount() {
-    this.fetchPlaylistData();
-  }
 
   fetchPlaylistData = async () => {
     const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${PLAY_LIST_ID}&maxResults=${MAX_RESULT}&part=snippet%2CcontentDetails&key=${API_KEY}`);
@@ -48,22 +66,18 @@ export default class LandingScreen extends Component<{}> {
 
   render() {
     const videos = this.state.videos;
-    const newVideos=videos.map(x => ({
-      label: x.Text,
-      value: x.Value
-    }))
-    console.log("---",newVideos);
     return (
       <Background>
+
         <View style={styles.viewstyle}>
           <Text style={styles.baseText}>
             <Text style={styles.titleText}>{'\n'}</Text>
             <Text style={styles.titleText}>{'\n'}</Text>
             <Text style={styles.titleText}>{"Welcome to Granville Learn"}{'\n'}</Text>
             <Text style={styles.titleText}>{'\n'}</Text>
-            <View>
-              <Landingphoto />
-            </View>
+
+            <Landingphoto />
+
             <Text style={styles.titleText}>{'\n'}</Text>
             {/* <Text style={styles.bodyText}>{"The Learning Module is the place where you can watch tutorials and lectures on any of our Granville Biomedical product line."}{'\n'}</Text> */}
             <Text style={styles.titleText}>{'\n'}</Text>
@@ -72,18 +86,32 @@ export default class LandingScreen extends Component<{}> {
             <Text style={styles.bodyText}>{"2. Each playlist contains multiple videos that will guide your learning"}</Text>
             <Text style={styles.titleText}>{'\n'}</Text>
           </Text>
-          <RNPickerSelect
-            placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
-            onValueChange={(value) => getPickerVal(value)}
-            items={videos}
-            //   [
-            //   { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
-            //   { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
-            //   { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
-            //   { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
-            //   { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
-            // ]}
-          />
+          <SafeAreaView style={styles.safeArea}>
+            <FlatList
+              data={this.state.videos}
+              keyExtractor={(_, index) => index.toString()}
+              renderItem={
+                ({ item }) =>
+                  <TouchableOpacity
+                    style={styles.demacate}
+                    onPress={() => this.watchVideo(item.contentDetails.videoId)}
+                  >
+                    <Text
+                      style={{
+                        padding: 10,
+                        fontSize: 12,
+                        height: 44,
+                      }}
+                    >
+                      {item.snippet.title}
+                    </Text>
+                  </TouchableOpacity>
+              }
+            />
+          </SafeAreaView>
+
+
+
           <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
             Logout
         </Button>
@@ -94,6 +122,20 @@ export default class LandingScreen extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+  demacate: {
+    borderBottomColor: '#8c7ba8',
+    borderBottomWidth: 4,
+    borderRadius: 15
+  },
+  item: {
+    padding: 10,
+    fontSize: 12,
+    height: 100,
+  },
   container: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
@@ -126,21 +168,30 @@ const styles = StyleSheet.create({
   },
 
   baseText: {
-    fontFamily: 'Arial',
+    ...Platform.select({
+      ios: { fontFamily: 'Arial', },
+      android: { fontFamily: 'Roboto' }
+    })
   },
 
   titleText: {
     fontSize: 25,
-    fontFamily: 'Arial',
+
+    ...Platform.select({
+      ios: { fontFamily: 'Arial', },
+      android: { fontFamily: 'Roboto' }
+    }),
     color: "#403a60",
-    fontWeight: "bold",
     paddingVertical: 14,
     textAlignVertical: "center",
   },
 
   bodyText: {
     fontSize: 20,
-    fontFamily: 'Arial',
+    ...Platform.select({
+      ios: { fontFamily: 'Arial', },
+      android: { fontFamily: 'Roboto' }
+    }),
     color: theme.colors.secondary,
     textAlignVertical: "center",
     alignItems: "center",

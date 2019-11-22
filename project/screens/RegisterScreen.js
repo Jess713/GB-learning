@@ -23,7 +23,6 @@ const setProductName = (val) => {
 
 
 const RegisterScreen = ({ navigation }) => {
-  fetchPlaylistData;
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });

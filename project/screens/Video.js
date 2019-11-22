@@ -6,14 +6,9 @@ export default class WatchVideo extends Component<{}> {
   constructor(props) {
     super(props);
     this.videourl = JSON.stringify(props.navigation.getParam('video_url', 'NO-ID'));
+    console.log(this.videourl);
   }
-  home() {
-    this.props.navigation.navigate('VideoList');
-  }
-  videos() {
-    this.props.navigation.navigate('WatchVideo');
-  }
-
+ 
   render() {
     return (
       <SafeAreaView style={styles.safeArea}>
