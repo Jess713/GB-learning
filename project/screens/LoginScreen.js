@@ -12,7 +12,10 @@ import { emailValidator, passwordValidator } from "../core/utils";
 import { loginUser } from "../api/auth-api";
 import Toast from "../components/Toast";
 
-
+/**
+ * If the user forgets to enter their email or password, the application
+ * will display either an error message or toast on the screen
+ */
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -20,7 +23,10 @@ const LoginScreen = ({ navigation }) => {
   const [error, setError] = useState("");
   const [toast, setToast] = useState({ value: "", type: "" });
   
-
+  /**
+   * When the user presses the "login" button, it will validate the user's
+   * entry in the database
+   */
   const _onLoginPressed = async () => {
     if (loading) return;
 
@@ -32,28 +38,42 @@ const LoginScreen = ({ navigation }) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
-
+    /**
+     * Displays loading spinnger
+     */
     setLoading(true);
 
     const response = await loginUser({
       email: email.value,
       password: password.value
     });
-
+    /**
+     * Displays a toast if the user failed to login, otherwise it will
+     * proceed to launch the LandingScreen
+     */
     if (response.error) {
       setError(response.error);
       setToast({ type: "error", value: response.error });
       console.log("login failed");
     }else{
       console.log("Login success");
+      /**
+       * Sets the application to the video sections where the user cannot
+       * go back to the login/register sections
+       */
       setTimeout(()=>navigation.navigate("App"),1000);
       // resetAction;
     }
-
+    /**
+     * Doesn't displays loading spinnger
+     */
     setLoading(false);
    
   };
-
+  /**
+   * This section renders and displays what the user will see on the
+   * LoginScreen page
+   */
   return (
     <Background>
       {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
@@ -113,7 +133,9 @@ const LoginScreen = ({ navigation }) => {
     </Background>
   );
 };
-
+/**
+ * Styling for the LoginScreen page
+ */
 const styles = StyleSheet.create({
   forgotPassword: {
     width: "100%",

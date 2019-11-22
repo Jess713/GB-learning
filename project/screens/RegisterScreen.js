@@ -17,9 +17,17 @@ import { signInUser } from "../api/auth-api";
 import firebase from "firebase/app";
 import Toast from "../components/Toast";
 let productName;
+
+/**
+ * Gets the product name from the user and sets the value in productName variable
+ */
 const setProductName = (val) => {
   productName = val;
 };
+/**
+ * Validates the user entries of the name, email, password, and product entries when
+ * the user decides to register for an account
+ */
 const RegisterScreen = ({ navigation }) => {
 
   const [name, setName] = useState({ value: "", error: "" });
@@ -27,7 +35,10 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  /**
+   * When user presses "sign up" button, it will validate if it's a proper name,
+   * email and if the password is strong enough
+   */
   const _onSignUpPressed = async () => {
     if (loading) return;
 
@@ -36,12 +47,24 @@ const RegisterScreen = ({ navigation }) => {
     const passwordError = passwordValidator(password.value);
 
     if (emailError || passwordError || nameError) {
+      /**
+       * Sets the name as an error
+       */
       setName({ ...name, error: nameError });
+      /**
+       * Sets the email as an error
+       */
       setEmail({ ...email, error: emailError });
+      /**
+       * Sets the password as an error
+       */
       setPassword({ ...password, error: passwordError });
       return;
     }
-
+    /**
+     * If no errors had occured and all parts of the register entries are valid,
+     * then it will set the the new user's info in the database
+     */
     setLoading(true);
     const response = await signInUser({
       name: name.value,
@@ -68,7 +91,10 @@ const RegisterScreen = ({ navigation }) => {
 
 
 
-
+  /**
+   * This section renders and displays what the user will see on the
+   * RegisterScreen page
+   */
   return (
     <Background>
       {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
@@ -142,7 +168,9 @@ const RegisterScreen = ({ navigation }) => {
   );
 
 };
-
+/**
+ * Styling for the RegisterScreen page
+ */
 const styles = StyleSheet.create({
   label: {
 
