@@ -15,7 +15,10 @@ import { theme } from "../core/theme";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
-
+/**
+ * This class ( LandingScreen.js ) is for the page which after the users sign-in,
+ * Displays the video from Youtube and shows play lists of each categories
+ */
 const DATA = [
   {
     id: 'first', //has to be string here for id
@@ -34,7 +37,10 @@ const DATA = [
   //   title: 'Fourth Item',
   // },
 ];
-
+/**
+ * Item Function creates HTML designs and call it inside main rendering function.
+ * 
+ */
 function Item({ id, title, selected, onSelect }) {
   return (
     <TouchableOpacity
@@ -46,7 +52,8 @@ function Item({ id, title, selected, onSelect }) {
   );
 }
 
-// export default function LandingScreen() {
+// The main function which returns the HTML designs, and also addes other functions.
+
 const LandingScreen = ({ navigation, navigationOptions }) => {
   const [selected, setSelected] = React.useState(new Map());
 
@@ -63,6 +70,9 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
     [selected],
   );
 
+  /**
+   * HTML syntax part
+   */
   return (
     <Background>
       <View style={styles.viewstyle}>
@@ -72,7 +82,7 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
           <Text style={styles.titleText}>{"Welcome to Granville Learn"}{'\n'}</Text>
           <Text style={styles.titleText}>{'\n'}</Text>
           <View>
-            <Landingphoto/>
+            <Landingphoto />
           </View>
           <Text style={styles.titleText}>{'\n'}</Text>
           {/* <Text style={styles.bodyText}>{"The Learning Module is the place where you can watch tutorials and lectures on any of our Granville Biomedical product line."}{'\n'}</Text> */}
@@ -107,11 +117,18 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
     </Background>
   );
 }
+/**
+ *  These function sets the title navigates for different pages.
+ */
 LandingScreen.navigationOptions = {
   title: 'Home',
   headerLeft: null,
 
 };
+
+/**
+ * Style sets...
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -173,7 +190,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    
+
   },
 
 });
