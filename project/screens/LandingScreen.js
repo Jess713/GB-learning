@@ -15,47 +15,24 @@ import { theme } from "../core/theme";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
+import RNPickerSelect from 'react-native-picker-select';
+let videoName;
+const getPickerVal = (val) => {
+  videoName = val;
+};
+const MAX_RESULT = 50;
+const PLAY_LIST_ID= "PLANMHOrJaFxMSduAFHDUSaG5d7NI1a5SW";
+const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
 
-const DATA = [
-  {
-    id: 'first', //has to be string here for id
-    title: 'Anatomical Models',
-  },
-  {
-    id: 'second',
-    title: 'Surgical Task Trainers',
-  },
-  {
-    id: 'third',
-    title: 'Patient Education',
-  },
-  // {
-  //   id: 'fourth',
-  //   title: 'Fourth Item',
-  // },
-];
 
-function Item({ id, title, selected, onSelect }) {
-  return (
-    <TouchableOpacity
-      onPress={() => onSelect(id)}
-      style={styles.item}
-    >
-      <Text style={styles.title}>{title}</Text>
-    </TouchableOpacity>
-  );
-}
-
-// export default function LandingScreen() {
 const LandingScreen = ({ navigation, navigationOptions }) => {
   const [selected, setSelected] = React.useState(new Map());
+  fetchPlaylistData;
 
   const onSelect = React.useCallback(
     id => {
       const newSelected = new Map(selected);
       newSelected.set(id, !selected.get(id));
-      //   alert(id);
-
       setSelected(newSelected);
       // Actions.videolist({pressed: id});
       navigation.navigate('VideoList', { pressed: id });
@@ -63,6 +40,12 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
     [selected],
   );
 
+  const fetchPlaylistData = async () => {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${PLAY_LIST_ID}&maxResults=${MAX_RESULT}&part=snippet%2CcontentDetails&key=${API_KEY}`);
+    const json = await response.json();
+    this.setState({ videos: json['items'] });
+  };
+  
   return (
     <Background>
       <View style={styles.viewstyle}>
@@ -82,7 +65,7 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
           <Text style={styles.bodyText}>{"2. Each playlist contains multiple videos that will guide your learning"}</Text>
           <Text style={styles.titleText}>{'\n'}</Text>
         </Text>
-
+{/* 
         <FlatList style={styles.list}
           data={DATA}
           renderItem={({ item }) => (
@@ -97,7 +80,18 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
 
           keyExtractor={item => item.id}
           extraData={selected}
-        />
+        /> */}
+        <RNPickerSelect
+        placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
+        onValueChange={(value) => getPickerVal(value)}
+        items={[
+          { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
+          { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
+          { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
+          { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
+          { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
+        ]}
+      />
 
         <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
           Logout

@@ -20,13 +20,16 @@ let productName;
 const setProductName = (val) => {
   productName = val;
 };
-const RegisterScreen = ({ navigation }) => {
 
+
+const RegisterScreen = ({ navigation }) => {
+  fetchPlaylistData;
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
 
   const _onSignUpPressed = async () => {
     if (loading) return;
