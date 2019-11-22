@@ -94,7 +94,7 @@ const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <Button loading={loading} mode="contained" onPress={_onLoginPressed}>
+      <Button style={styles.button} loading={loading} onPress={_onLoginPressed}>
         Login
       </Button>
 
@@ -130,7 +130,12 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: "bold",
     color: theme.colors.primary
-  }
+  },
+
+  button: {
+    color: "#ffffff",
+    backgroundColor: "#403a60",
+  },
 });
 
 export default memo(LoginScreen);

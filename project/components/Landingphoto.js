@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 const Landingphoto = () => (
-    <view>
+    <View>
   <Image source={require('../assets/pic1.jpg')} style={styles.image} />
-  </view>
+  </View>
 );
 
 const styles = StyleSheet.create({

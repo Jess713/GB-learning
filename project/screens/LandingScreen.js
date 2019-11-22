@@ -67,20 +67,12 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
     <Background>
       <View style={styles.viewstyle}>
         <Text style={styles.baseText}>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.titleText}>{"Welcome to Granville Learn"}{'\n'}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
+          <Text style={styles.titleText}>{"    GRANVILLE BIOMEDICAL"}{'\n'}</Text>
+          <Text style={styles.titleText}>{"  EDUCATIONAL TUTORIALS"}{'\n'}</Text>
           <View>
-            <Landingphoto/>
+            <Landingphoto />
           </View>
-          <Text style={styles.titleText}>{'\n'}</Text>
           {/* <Text style={styles.bodyText}>{"The Learning Module is the place where you can watch tutorials and lectures on any of our Granville Biomedical product line."}{'\n'}</Text> */}
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.bodyText}>{"1. Please select the matching product playlist to view tutorials"}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.bodyText}>{"2. Each playlist contains multiple videos that will guide your learning"}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
         </Text>
 
         <FlatList style={styles.list}
@@ -99,7 +91,7 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
           extraData={selected}
         />
 
-        <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
+        <Button style={styles.button} onPress={() => navigation.navigate("LoginScreen")}>
           Logout
         </Button>
 
@@ -149,12 +141,14 @@ const styles = StyleSheet.create({
   },
 
   titleText: {
-    fontSize: 25,
+    fontSize: 23,
     fontFamily: 'Arial',
     color: "#403a60",
     fontWeight: "bold",
     paddingVertical: 14,
-    textAlignVertical: "center",
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   bodyText: {
@@ -173,7 +167,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    
+    color: "#403a60",
   },
 
 });
