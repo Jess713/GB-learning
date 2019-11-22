@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Picker } from "react-native";
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Picker } from "react-native";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -28,11 +28,12 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [toast, setToast] = useState({ value: "", type: "" });
 
 
   const _onSignUpPressed = async () => {
     if (loading) return;
-
+    console.log(productName);
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
@@ -41,6 +42,9 @@ const RegisterScreen = ({ navigation }) => {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
+      return;
+    } else if (productName === "N/A" || !productName) {
+      setToast({ type: "error", value: "Please type in your product" });
       return;
     }
 
@@ -54,6 +58,7 @@ const RegisterScreen = ({ navigation }) => {
 
     if (response.error) {
       setError(response.error);
+      setToast({ type: "error", value: response.error });
     }
     setLoading(false);
 
@@ -72,75 +77,81 @@ const RegisterScreen = ({ navigation }) => {
 
 
   return (
-    <Background>
-      {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
-      <Logo />
+    <ScrollView>
+      <Background>
+        {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
+        <Logo />
 
-      {/* <Header style={{ marginTop: -30, color: "#363c74" }}>Create Account</Header> */}
+        {/* <Header style={{ marginTop: -30, color: "#363c74" }}>Create Account</Header> */}
 
-      <TextInput
-        label="Name"
-        returnKeyType="next"
-        value={name.value}
-        onChangeText={text => setName({ value: text, error: "" })}
-        error={!!name.error}
-        errorText={name.error}
-      />
+        <TextInput
+          label="Name"
+          returnKeyType="next"
+          value={name.value}
+          onChangeText={text => setName({ value: text, error: "" })}
+          error={!!name.error}
+          errorText={name.error}
+        />
 
-      <TextInput
-        label="Email"
-        returnKeyType="next"
-        value={email.value}
-        onChangeText={text => setEmail({ value: text, error: "" })}
-        error={!!email.error}
-        errorText={email.error}
-        autoCapitalize="none"
-        // autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-      />
+        <TextInput
+          label="Email"
+          returnKeyType="next"
+          value={email.value}
+          onChangeText={text => setEmail({ value: text, error: "" })}
+          error={!!email.error}
+          errorText={email.error}
+          autoCapitalize="none"
+          // autoCompleteType="email"
+          textContentType="emailAddress"
+          keyboardType="email-address"
+        />
 
-      <TextInput
-        label="Password"
-        returnKeyType="done"
-        value={password.value}
-        onChangeText={text => setPassword({ value: text, error: "" })}
-        error={!!password.error}
-        errorText={password.error}
-        secureTextEntry
-        autoCapitalize="none"
-      />
-      
-      <RNPickerSelect
-        placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
-        onValueChange={(value) => setProductName(value)}
-        items={[
-          { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
-          { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
-          { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
-          { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
-          { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
-        ]}
-      />
+        <TextInput
+          label="Password"
+          returnKeyType="done"
+          value={password.value}
+          onChangeText={text => setPassword({ value: text, error: "" })}
+          error={!!password.error}
+          errorText={password.error}
+          secureTextEntry
+          autoCapitalize="none"
+        />
 
-      <Button
-        loading={loading}
-        mode="contained"
-        onPress={_onSignUpPressed}
-        style={styles.button}
-      >
-        Sign Up
+        <RNPickerSelect
+          placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
+          onValueChange={(value) => setProductName(value)}
+          items={[
+            { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
+            { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
+            { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
+            { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
+            { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
+          ]}
+        />
+
+        <Button
+          loading={loading}
+          mode="contained"
+          onPress={_onSignUpPressed}
+          style={styles.button}
+        >
+          Sign Up
       </Button>
 
-      <View style={styles.row}>
-        <Text style={{ color: "#363c74", }}>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
-          <Text style={styles.link}>Login</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.row}>
+          <Text style={{ color: "#363c74", marginBottom: 30, }}>Already have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+            <Text style={styles.link}>Login</Text>
+          </TouchableOpacity>
+        </View>
 
-      <Toast message={error} onDismiss={() => setError("")} />
-    </Background>
+        <Toast
+          type={toast.type}
+          message={toast.value}
+          onDismiss={() => setToast({ value: "", type: "" })}
+        />
+      </Background>
+    </ScrollView>
   );
 
 };
