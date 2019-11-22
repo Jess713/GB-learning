@@ -1,14 +1,14 @@
-import React, { memo, useState, Component } from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   TouchableOpacity,
   FlatList,
   StyleSheet,
   Text,
-  View,
+  ScrollView,
   Platform
 } from 'react-native';
-import Constants from 'expo-constants';
+
 import { app } from 'firebase';
 import Logo from "../components/Logo";
 import Landingphoto from "../components/Landingphoto";
@@ -16,25 +16,10 @@ import { theme } from "../core/theme";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
-let videoName;
-const MAX_RESULT = 50;
-const PLAY_LIST_ID = "PLANMHOrJaFxMSduAFHDUSaG5d7NI1a5SW";
-const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
 
-const DATA = [
-  {
-    id: 'first', //has to be string here for id
-    title: 'Anatomical Models',
-  },
-  {
-    id: 'second',
-    title: 'Surgical Task Trainers',
-  },
-  {
-    id: 'third',
-    title: 'Patient Education',
-  },
-];
+const MAX_RESULT = 50;
+const PLAY_LIST_ID = "PLANMHOrJaFxMX3j37_6YIcdcAOll84cX9";
+const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
 
 
 export default class LandingScreen extends Component<{}> {
@@ -42,51 +27,37 @@ export default class LandingScreen extends Component<{}> {
     this.fetchPlaylistData();
   }
 
-
   constructor(props) {
     super(props);
     this.state = {
       videos: [],
     }
+    console.log("hi2222");
   }
 
   watchVideo(val) {
+
     this.props.navigation.navigate('WatchVideo', { video_url: val });
   }
-  getPickerVal = (val) => {
-    videoName = val;
-  };
-
 
   fetchPlaylistData = async () => {
+    console.log("fetchPlaylistData i made it");
     const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${PLAY_LIST_ID}&maxResults=${MAX_RESULT}&part=snippet%2CcontentDetails&key=${API_KEY}`);
     const json = await response.json();
     this.setState({ videos: json['items'] });
   };
 
   render() {
+    console.log("render");
     const videos = this.state.videos;
+    console.log(videos);
     return (
-      <Background>
-
-        <View style={styles.viewstyle}>
-          <Text style={styles.baseText}>
-            <Text style={styles.titleText}>{'\n'}</Text>
-            <Text style={styles.titleText}>{'\n'}</Text>
-            <Text style={styles.titleText}>{"Welcome to Granville Learn"}{'\n'}</Text>
-            <Text style={styles.titleText}>{'\n'}</Text>
-
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView>
+          <Background>
+            <Text style={styles.titleText}>{"GRANVILLE BIOMEDICAL"}</Text>
+            <Text style={styles.titleText}>{"EDUCATIONAL TUTORIALS"}</Text>
             <Landingphoto />
-
-            <Text style={styles.titleText}>{'\n'}</Text>
-            {/* <Text style={styles.bodyText}>{"The Learning Module is the place where you can watch tutorials and lectures on any of our Granville Biomedical product line."}{'\n'}</Text> */}
-            <Text style={styles.titleText}>{'\n'}</Text>
-            <Text style={styles.bodyText}>{"1. Please select the matching product playlist to view tutorials"}</Text>
-            <Text style={styles.titleText}>{'\n'}</Text>
-            <Text style={styles.bodyText}>{"2. Each playlist contains multiple videos that will guide your learning"}</Text>
-            <Text style={styles.titleText}>{'\n'}</Text>
-          </Text>
-          <SafeAreaView style={styles.safeArea}>
             <FlatList
               data={this.state.videos}
               keyExtractor={(_, index) => index.toString()}
@@ -98,9 +69,17 @@ export default class LandingScreen extends Component<{}> {
                   >
                     <Text
                       style={{
-                        padding: 10,
-                        fontSize: 12,
-                        height: 44,
+                        padding: 15,
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        // height: 44,
+                        ...Platform.select({
+                          ios: { fontFamily: 'Arial', },
+                          android: { fontFamily: 'Roboto' }
+                        }),
+                        
+                        justifyContent: 'center',
+                        color: '#ffffff',
                       }}
                     >
                       {item.snippet.title}
@@ -108,15 +87,18 @@ export default class LandingScreen extends Component<{}> {
                   </TouchableOpacity>
               }
             />
-          </SafeAreaView>
 
 
-
-          <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
-            Logout
+            <Button style={styles.button} onPress={() => {
+              this.props.navigation.navigate('LoginScreen');
+              logoutUser();
+            }}>
+              Logout
         </Button>
-        </View>
-      </Background>
+
+          </Background>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -124,88 +106,50 @@ export default class LandingScreen extends Component<{}> {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff'
+    flexDirection: 'row',
+    justifyContent: "center",
   },
   demacate: {
-    borderBottomColor: '#8c7ba8',
-    borderBottomWidth: 4,
-    borderRadius: 15
+    height: 100,
+    height: 80,
+    width: 250,
+    borderRadius: 13,
+    padding: 10,
+    marginTop:23,
+    backgroundColor: '#9891b5',
+    fontWeight: "bold",
   },
   item: {
-    padding: 10,
+    padding: 11,
     fontSize: 12,
     height: 100,
   },
-  container: {
-    flex: 1,
-    marginTop: Constants.statusBarHeight,
-    //display:"flex",
-    flexDirection: "row",
-    maxWidth: 400,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 700,
-  },
-  item: {
-    height: 300,
-    display: "flex",
-    flex: 1,
-    backgroundColor: '#8c7ba8',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    //display:"flex",
-  },
 
-  list: {
-    flex: 1,
-    marginTop: Constants.statusBarHeight,
-    //display:"flex",
-    flexDirection: "row",
-    maxWidth: 400,
-    height: 700,
-    padding: 20,
-  },
 
-  baseText: {
-    ...Platform.select({
-      ios: { fontFamily: 'Arial', },
-      android: { fontFamily: 'Roboto' }
-    })
-  },
 
   titleText: {
     fontSize: 25,
-
     ...Platform.select({
       ios: { fontFamily: 'Arial', },
       android: { fontFamily: 'Roboto' }
     }),
+    textAlign: 'center',
     color: "#403a60",
-    paddingVertical: 14,
-    textAlignVertical: "center",
+    fontWeight: "bold",
   },
 
-  bodyText: {
-    fontSize: 20,
-    ...Platform.select({
-      ios: { fontFamily: 'Arial', },
-      android: { fontFamily: 'Roboto' }
-    }),
-    color: theme.colors.secondary,
-    textAlignVertical: "center",
-    alignItems: "center",
-  },
 
   viewstyle: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: "center",
-    alignItems: "center",
-    marginTop: "30",
+    marginTop: 30,
   },
 
   button: {
-
+    backgroundColor: "#403a60",
+    marginTop: 40,
+    marginBottom: 40,
   },
 
 });

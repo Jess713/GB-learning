@@ -9,7 +9,7 @@ import { AuthSession } from "expo";
 const Background = ({ children }) => (
   <ImageBackground
     source={require("../assets/background.png")}
-    resizeMode="repeat"
+    resizeMode="cover"
     style={styles.background}
   >
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     
-    backgroundColor:"#8385ad",
+    // backgroundColor:"#8385ad",
   },
   container: {
     backgroundColor:"#b8b8d2",
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     width: "100%",
-    maxWidth: 380,
+    
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center"

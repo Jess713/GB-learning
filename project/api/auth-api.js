@@ -3,7 +3,9 @@ import "firebase/auth";
 import { FIREBASE_CONFIG } from "../core/config";
 
 export const logoutUser = () => {
+
   firebase.auth().signOut();
+  console.log("user out")
 };
 
 export const signInUser = async ({ name, email, password, product }) => {

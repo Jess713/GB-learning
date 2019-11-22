@@ -133,7 +133,7 @@ const RegisterScreen = ({ navigation }) => {
       </Button>
 
       <View style={styles.row}>
-        <Text style={{ color: "#363c74" }}>Already have an account? </Text>
+        <Text style={{ color: "#363c74", }}>Already have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
@@ -150,7 +150,8 @@ const styles = StyleSheet.create({
 
   },
   button: {
-    marginTop: 24
+    marginTop: 24,
+    backgroundColor: "#403a60",
   },
   row: {
     flexDirection: "row",
