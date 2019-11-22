@@ -17,95 +17,82 @@ import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
 import RNPickerSelect from 'react-native-picker-select';
 let videoName;
-const getPickerVal = (val) => {
-  videoName = val;
-};
 const MAX_RESULT = 50;
-const PLAY_LIST_ID= "PLANMHOrJaFxMSduAFHDUSaG5d7NI1a5SW";
+const PLAY_LIST_ID = "PLANMHOrJaFxMSduAFHDUSaG5d7NI1a5SW";
 const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
 
+export default class LandingScreen extends Component<{}> {
+  // watchVideo(video_url) {
+  //   // Actions.watchvideo({video_url: video_url});
+  //   this.props.navigation.navigate('WatchVideo', { video_url: video_url });
+  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      videos: [],
+    }
+  }
+  getPickerVal = (val) => {
+    videoName = val;
+  };
 
-const LandingScreen = ({ navigation, navigationOptions }) => {
-  const [selected, setSelected] = React.useState(new Map());
-  fetchPlaylistData;
+  componentWillMount() {
+    this.fetchPlaylistData();
+  }
 
-  const onSelect = React.useCallback(
-    id => {
-      const newSelected = new Map(selected);
-      newSelected.set(id, !selected.get(id));
-      setSelected(newSelected);
-      // Actions.videolist({pressed: id});
-      navigation.navigate('VideoList', { pressed: id });
-    },
-    [selected],
-  );
-
-  const fetchPlaylistData = async () => {
+  fetchPlaylistData = async () => {
     const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${PLAY_LIST_ID}&maxResults=${MAX_RESULT}&part=snippet%2CcontentDetails&key=${API_KEY}`);
     const json = await response.json();
     this.setState({ videos: json['items'] });
   };
-  
-  return (
-    <Background>
-      <View style={styles.viewstyle}>
-        <Text style={styles.baseText}>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.titleText}>{"Welcome to Granville Learn"}{'\n'}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <View>
-            <Landingphoto/>
-          </View>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          {/* <Text style={styles.bodyText}>{"The Learning Module is the place where you can watch tutorials and lectures on any of our Granville Biomedical product line."}{'\n'}</Text> */}
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.bodyText}>{"1. Please select the matching product playlist to view tutorials"}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.bodyText}>{"2. Each playlist contains multiple videos that will guide your learning"}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-        </Text>
-{/* 
-        <FlatList style={styles.list}
-          data={DATA}
-          renderItem={({ item }) => (
-            <Item
-              id={item.id}
-              title={item.title}
-              selected={selected.get(item.id)}
-              onSelect={onSelect}
-              style={styles.item}
-            />
-          )}
 
-          keyExtractor={item => item.id}
-          extraData={selected}
-        /> */}
-        <RNPickerSelect
-        placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
-        onValueChange={(value) => getPickerVal(value)}
-        items={[
-          { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
-          { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
-          { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
-          { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
-          { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
-        ]}
-      />
-
-        <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
-          Logout
+  render() {
+    const videos = this.state.videos;
+    const newVideos=videos.map(x => ({
+      label: x.Text,
+      value: x.Value
+    }))
+    console.log("---",newVideos);
+    return (
+      <Background>
+        <View style={styles.viewstyle}>
+          <Text style={styles.baseText}>
+            <Text style={styles.titleText}>{'\n'}</Text>
+            <Text style={styles.titleText}>{'\n'}</Text>
+            <Text style={styles.titleText}>{"Welcome to Granville Learn"}{'\n'}</Text>
+            <Text style={styles.titleText}>{'\n'}</Text>
+            <View>
+              <Landingphoto />
+            </View>
+            <Text style={styles.titleText}>{'\n'}</Text>
+            {/* <Text style={styles.bodyText}>{"The Learning Module is the place where you can watch tutorials and lectures on any of our Granville Biomedical product line."}{'\n'}</Text> */}
+            <Text style={styles.titleText}>{'\n'}</Text>
+            <Text style={styles.bodyText}>{"1. Please select the matching product playlist to view tutorials"}</Text>
+            <Text style={styles.titleText}>{'\n'}</Text>
+            <Text style={styles.bodyText}>{"2. Each playlist contains multiple videos that will guide your learning"}</Text>
+            <Text style={styles.titleText}>{'\n'}</Text>
+          </Text>
+          <RNPickerSelect
+            placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
+            onValueChange={(value) => getPickerVal(value)}
+            items={videos}
+            //   [
+            //   { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
+            //   { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
+            //   { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
+            //   { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
+            //   { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
+            // ]}
+          />
+          <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
+            Logout
         </Button>
-
-      </View>
-    </Background>
-  );
+        </View>
+      </Background>
+    );
+  }
 }
-LandingScreen.navigationOptions = {
-  title: 'Home',
-  headerLeft: null,
 
-};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -167,9 +154,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    
+
   },
 
 });
-
-export default memo(LandingScreen);
