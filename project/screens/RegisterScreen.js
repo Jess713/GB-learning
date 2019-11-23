@@ -44,7 +44,7 @@ const RegisterScreen = ({ navigation }) => {
       setPassword({ ...password, error: passwordError });
       return;
     } else if (productName === "N/A" || !productName) {
-      setToast({ type: "error", value: "Please type in your product" });
+      setToast({ type: "error", value: "Please select your product" });
       return;
     }
 
@@ -92,6 +92,7 @@ const RegisterScreen = ({ navigation }) => {
           onChangeText={text => setName({ value: text, error: "" })}
           error={!!name.error}
           errorText={name.error}
+          style={{width:370,margin:'auto',}}
         />
 
         <TextInput
@@ -105,6 +106,7 @@ const RegisterScreen = ({ navigation }) => {
           // autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"
+          style={{width:370,margin:'auto',}}
         />
 
         <TextInput
@@ -116,12 +118,14 @@ const RegisterScreen = ({ navigation }) => {
           errorText={password.error}
           secureTextEntry
           autoCapitalize="none"
+          style={{width:370,margin:'auto',}}
         />
 
         <RNPickerSelect
-          placeholder={{ label: 'Please select your product', value: 'N/A', color: "#363c74", }}
+          placeholder={{}}
           onValueChange={(value) => setProductName(value)}
           items={[
+            { label: 'Please select your product', value: 'N/A', color: "#363c74" },
             { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
             { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
             { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
