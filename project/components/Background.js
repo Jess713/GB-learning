@@ -22,16 +22,16 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     width: "100%",
+    height:"100%",
     
     // backgroundColor:"#8385ad",
   },
   container: {
     backgroundColor:"#b8b8d2",
-    height: "auto",
     flex: 1,
     padding: 20,
     width: "100%",
-    
+    height:"100%",
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center"

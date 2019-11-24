@@ -32,7 +32,7 @@ export default class LandingScreen extends Component<{}> {
     this.state = {
       videos: [],
     }
-    console.log("hi2222");
+    
   }
 
   watchVideo(val) {
@@ -41,24 +41,21 @@ export default class LandingScreen extends Component<{}> {
   }
 
   fetchPlaylistData = async () => {
-    console.log("fetchPlaylistData i made it");
     const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${PLAY_LIST_ID}&maxResults=${MAX_RESULT}&part=snippet%2CcontentDetails&key=${API_KEY}`);
     const json = await response.json();
     this.setState({ videos: json['items'] });
   };
 
   render() {
-    console.log("render");
     const videos = this.state.videos;
-    console.log(videos);
     return (
       <SafeAreaView style={styles.safeArea}>
-        <ScrollView>
+        <ScrollView style={{backgroundColor:'#B8B8D4'}}>
           <Background>
             <Text style={styles.titleText}>{"GRANVILLE BIOMEDICAL"}</Text>
             <Text style={styles.titleText}>{"EDUCATIONAL TUTORIALS"}</Text>
             <Landingphoto />
-            <FlatList
+            {!!videos ? <FlatList
               data={this.state.videos}
               keyExtractor={(_, index) => index.toString()}
               renderItem={
@@ -77,7 +74,7 @@ export default class LandingScreen extends Component<{}> {
                           ios: { fontFamily: 'Arial', },
                           android: { fontFamily: 'Roboto' }
                         }),
-                        
+
                         justifyContent: 'center',
                         color: '#ffffff',
                       }}
@@ -86,7 +83,8 @@ export default class LandingScreen extends Component<{}> {
                     </Text>
                   </TouchableOpacity>
               }
-            />
+            /> : null}
+            {!videos ? <Text style={styles.titleText}>{"Playlist is currently empty."}</Text> : null}
 
 
             <Button style={styles.button} onPress={() => {
@@ -115,7 +113,7 @@ const styles = StyleSheet.create({
     width: 250,
     borderRadius: 13,
     padding: 10,
-    marginTop:23,
+    marginTop: 23,
     backgroundColor: '#9891b5',
     fontWeight: "bold",
   },
