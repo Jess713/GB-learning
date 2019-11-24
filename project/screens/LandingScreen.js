@@ -69,6 +69,7 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
         <Text style={styles.baseText}>
           <Text style={styles.titleText}>{"    GRANVILLE BIOMEDICAL"}{'\n'}</Text>
           <Text style={styles.titleText}>{"  EDUCATIONAL TUTORIALS"}{'\n'}</Text>
+          
           <View>
             <Landingphoto />
           </View>
