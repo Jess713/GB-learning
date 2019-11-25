@@ -92,7 +92,7 @@ const RegisterScreen = ({ navigation }) => {
    */
   return (
    
-    <ScrollView>
+    <ScrollView style={{backgroundColor:'#B8B8D4'}}>
       <Background>
         {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
         <Logo />

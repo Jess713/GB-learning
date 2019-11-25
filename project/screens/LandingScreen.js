@@ -75,7 +75,9 @@ export default class LandingScreen extends Component<{}> {
                           ios: { fontFamily: 'Arial', },
                           android: { fontFamily: 'Roboto' }
                         }),
-
+                        flex: 1,
+                        flexDirection: 'row',
+                        textAlign:'center',
                         justifyContent: 'center',
                         color: '#ffffff',
                       }}
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     padding: 10,
     marginTop: 23,
-    backgroundColor: '#9891b5',
+    backgroundColor: '#403a60',
     fontWeight: "bold",
   },
   item: {
