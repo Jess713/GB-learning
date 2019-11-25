@@ -1,13 +1,14 @@
-import React, { memo, useState, Component } from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   TouchableOpacity,
   FlatList,
   StyleSheet,
   Text,
-  View
+  ScrollView,
+  Platform
 } from 'react-native';
-import Constants from 'expo-constants';
+
 import { app } from 'firebase';
 import Logo from "../components/Logo";
 import Landingphoto from "../components/Landingphoto";
@@ -15,6 +16,7 @@ import { theme } from "../core/theme";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
+<<<<<<< HEAD
 /**
  * This class ( LandingScreen.js ) is for the page which after the users sign-in,
  * Displays the video from Youtube and shows play lists of each categories
@@ -111,12 +113,94 @@ const LandingScreen = ({ navigation, navigationOptions }) => {
 
         <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
           Logout
+=======
+
+const MAX_RESULT = 50;
+//Heathers:PLAfn5OU0QoMDK5XQsbkXuITRqvPf6o0gQ
+const PLAY_LIST_ID = "PLAfn5OU0QoMDK5XQsbkXuITRqvPf6o0gQ";
+const API_KEY = "AIzaSyCJtoZ4XuDc-m6Y6gIltSKj3RX9jigP2mM";
+
+
+export default class LandingScreen extends Component<{}> {
+  componentWillMount() {
+    this.fetchPlaylistData();
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      videos: [],
+    }
+    
+  }
+
+  watchVideo(val) {
+
+    this.props.navigation.navigate('WatchVideo', { video_url: val });
+  }
+
+  fetchPlaylistData = async () => {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${PLAY_LIST_ID}&maxResults=${MAX_RESULT}&part=snippet%2CcontentDetails&key=${API_KEY}`);
+    const json = await response.json();
+    this.setState({ videos: json['items'] });
+  };
+
+  render() {
+    const videos = this.state.videos;
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView style={{backgroundColor:'#B8B8D4'}}>
+          <Background>
+            <Text style={styles.titleText}>{"GRANVILLE BIOMEDICAL"}</Text>
+            <Text style={styles.titleText}>{"EDUCATIONAL TUTORIALS"}</Text>
+            <Landingphoto />
+            {!!videos ? <FlatList
+              data={this.state.videos}
+              keyExtractor={(_, index) => index.toString()}
+              renderItem={
+                ({ item }) =>
+                  <TouchableOpacity
+                    style={styles.demacate}
+                    onPress={() => this.watchVideo(item.contentDetails.videoId)}
+                  >
+                    <Text
+                      style={{
+                        padding: 15,
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        // height: 44,
+                        ...Platform.select({
+                          ios: { fontFamily: 'Arial', },
+                          android: { fontFamily: 'Roboto' }
+                        }),
+
+                        justifyContent: 'center',
+                        color: '#ffffff',
+                      }}
+                    >
+                      {item.snippet.title}
+                    </Text>
+                  </TouchableOpacity>
+              }
+            /> : null}
+            {!videos ? <Text style={styles.titleText}>{"Playlist is currently empty."}</Text> : null}
+
+
+            <Button style={styles.button} onPress={() => {
+              this.props.navigation.navigate('LoginScreen');
+              logoutUser();
+            }}>
+              Logout
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
         </Button>
 
-      </View>
-    </Background>
-  );
+          </Background>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
 }
+<<<<<<< HEAD
 /**
  *  These function sets the title navigates for different pages.
  */
@@ -129,70 +213,60 @@ LandingScreen.navigationOptions = {
 /**
  * Style sets...
  */
+=======
+
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
-    //display:"flex",
-    flexDirection: "row",
-    maxWidth: 400,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 700,
+    flexDirection: 'row',
+    justifyContent: "center",
+  },
+  demacate: {
+    height: 100,
+    height: 80,
+    width: 250,
+    borderRadius: 13,
+    padding: 10,
+    marginTop: 23,
+    backgroundColor: '#9891b5',
+    fontWeight: "bold",
   },
   item: {
-    height: 300,
-    display: "flex",
-    flex: 1,
-    backgroundColor: '#8c7ba8',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    //display:"flex",
+    padding: 11,
+    fontSize: 12,
+    height: 100,
   },
 
-  list: {
-    flex: 1,
-    marginTop: Constants.statusBarHeight,
-    //display:"flex",
-    flexDirection: "row",
-    maxWidth: 400,
-    height: 700,
-    padding: 20,
-  },
 
-  baseText: {
-    fontFamily: 'Arial',
-  },
 
   titleText: {
     fontSize: 25,
-    fontFamily: 'Arial',
+    ...Platform.select({
+      ios: { fontFamily: 'Arial', },
+      android: { fontFamily: 'Roboto' }
+    }),
+    textAlign: 'center',
     color: "#403a60",
     fontWeight: "bold",
-    paddingVertical: 14,
-    textAlignVertical: "center",
   },
 
-  bodyText: {
-    fontSize: 20,
-    fontFamily: 'Arial',
-    color: theme.colors.secondary,
-    textAlignVertical: "center",
-    alignItems: "center",
-  },
 
   viewstyle: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: "center",
-    alignItems: "center",
-    marginTop: "30",
+    marginTop: 30,
   },
 
   button: {
+<<<<<<< HEAD
 
+=======
+    backgroundColor: "#403a60",
+    marginTop: 40,
+    marginBottom: 40,
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
   },
 
 });
-
-export default memo(LandingScreen);

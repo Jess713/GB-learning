@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
     marginTop: 12
   },
   button: {
-    marginTop: 12
+    marginTop: 12,
+    backgroundColor: "#403a60",
   },
   label: {
     color: theme.colors.secondary,

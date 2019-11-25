@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, Platform } from "react-native";
 import { theme } from "../core/theme";
 
 const Header = ({ children }) =>
@@ -8,7 +8,10 @@ const Header = ({ children }) =>
 const styles = StyleSheet.create({
   header: {
     fontSize: 26,
-    // fontFamily: 'arial',
+    ...Platform.select({
+      ios: { fontFamily: 'Arial', }, 
+      android: { fontFamily: 'Roboto' }
+ }),
     color: "#363c74",
     fontWeight: "bold",
     paddingVertical: 14,

@@ -3,15 +3,21 @@ import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 /**
+<<<<<<< HEAD
  * WatchVideo class constructs the video to be played via the correct URL by the user
  * selecting on which video they want to view
+=======
+ * Gets the video URL from YouTube 
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
  */
 export default class WatchVideo extends Component<{}> {
   constructor(props) {
     super(props);
     this.videourl = JSON.stringify(props.navigation.getParam('video_url', 'NO-ID'));
+    console.log(this.videourl);
   }
   /**
+<<<<<<< HEAD
    * Displays video list page
    */
   home() {
@@ -25,6 +31,9 @@ export default class WatchVideo extends Component<{}> {
   }
   /**
    * Plays the video starting from the beginning
+=======
+   * Starts and plays the video from  the beginning
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
    */
   render() {
     return (
