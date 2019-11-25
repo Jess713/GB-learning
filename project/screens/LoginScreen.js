@@ -12,7 +12,9 @@ import { emailValidator, passwordValidator } from "../core/utils";
 import { loginUser } from "../api/auth-api";
 import Toast from "../components/Toast";
 
-
+/**
+ * Sets the default name, email, password, error, and toast to an empty string
+ */
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -20,7 +22,10 @@ const LoginScreen = ({ navigation }) => {
   const [error, setError] = useState("");
   const [toast, setToast] = useState({ value: "", type: "" });
 
-
+  /**
+   * After pressing the login up button, it will validate the user's email and 
+   * password input and returns an error message if needed
+   */
   const _onLoginPressed = async () => {
     if (loading) return;
 
@@ -34,12 +39,16 @@ const LoginScreen = ({ navigation }) => {
     }
 
     setLoading(true);
-
+    /**
+     * Sets the validated email and password for Firebase to ensure login is successful
+     */
     const response = await loginUser({
       email: email.value,
       password: password.value
     });
-
+     /**
+     * Displays a toast message if the login failed or succeeded
+     */
     if (response.error) {
       setError(response.error);
       setToast({ type: "error", value: response.error });
@@ -53,7 +62,9 @@ const LoginScreen = ({ navigation }) => {
     setLoading(false);
 
   };
-
+   /**
+   * Page layout of the Login Screen.
+   */
   return (
     <Background>
       {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
@@ -115,7 +126,9 @@ const LoginScreen = ({ navigation }) => {
     </Background>
   );
 };
-
+/**
+ * Styling for the Login Screen page
+ */
 const styles = StyleSheet.create({
   forgotPassword: {
     width: "100%",
