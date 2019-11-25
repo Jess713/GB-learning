@@ -18,11 +18,20 @@ import firebase from "firebase/app";
 import Toast from "../components/Toast";
 
 let productName;
+
+/**
+ * Gets the product name from the user and sets the value in productName variable
+ */
 const setProductName = (val) => {
   productName = val;
 };
 /**
+<<<<<<< HEAD
+ * Validates the user entries of the name, email, password, and product entries when
+ * the user decides to register for an account
+=======
  * Sets the default name, email, password, error, and toast to an empty string
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
  */
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState({ value: "", error: "" });
@@ -30,11 +39,17 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+<<<<<<< HEAD
+  /**
+   * When user presses "sign up" button, it will validate if it's a proper name,
+   * email and if the password is strong enough
+=======
   const [toast, setToast] = useState({ value: "", type: "" });
 
   /**
    * After pressing the sign up button, it will validate the user's input and
    * return an error message if needed
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
    */
   const _onSignUpPressed = async () => {
     if (loading) return;
@@ -44,8 +59,17 @@ const RegisterScreen = ({ navigation }) => {
     const passwordError = passwordValidator(password.value);
 
     if (emailError || passwordError || nameError) {
+      /**
+       * Sets the name as an error
+       */
       setName({ ...name, error: nameError });
+      /**
+       * Sets the email as an error
+       */
       setEmail({ ...email, error: emailError });
+      /**
+       * Sets the password as an error
+       */
       setPassword({ ...password, error: passwordError });
       return;
     } else if (productName === "N/A" || !productName) {
@@ -53,8 +77,13 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
     /**
+<<<<<<< HEAD
+     * If no errors had occured and all parts of the register entries are valid,
+     * then it will set the the new user's info in the database
+=======
      * Sets the validated name, email, password and product name for Firebase to ensure 
      * registering is successful
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
      */
     setLoading(true);
     const response = await signInUser({
@@ -88,7 +117,12 @@ const RegisterScreen = ({ navigation }) => {
 
 
   /**
+<<<<<<< HEAD
+   * This section renders and displays what the user will see on the
+   * RegisterScreen page
+=======
    * Page layout of the Register Screen.
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
    */
   return (
    
@@ -176,7 +210,11 @@ const RegisterScreen = ({ navigation }) => {
 
 };
 /**
+<<<<<<< HEAD
+ * Styling for the RegisterScreen page
+=======
  * Styling for the Register Screen page
+>>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
  */
 const styles = StyleSheet.create({
   label: {

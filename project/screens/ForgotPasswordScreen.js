@@ -10,12 +10,22 @@ import { theme } from "../core/theme";
 import Button from "../components/Button";
 import { sendEmailWithPassword } from "../api/auth-api";
 import Toast from "../components/Toast";
-
+/**
+ * 
+ *  This class ( ForgotPasswordScreen.js) is supporting a function for users who already signed up,
+ *  but forgot their account password. The function is connected with Firebase database.
+ *  
+ */
 const ForgotPasswordScreen = ({ navigation }) => {
+  /**
+   * Set the varaibles to empty at the initial loading.
+   */
   const [email, setEmail] = useState({ value: "", error: "" });
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ value: "", type: "" });
-
+  /**
+  *  onClick function for button if user click "Send Reset Instructions"
+  */
   const _onSendPressed = async () => {
     if (loading) return;
 
@@ -40,9 +50,12 @@ const ForgotPasswordScreen = ({ navigation }) => {
         value: "Email with password has been sent."
       });
     }
-
+  
     setLoading(false);
   };
+  /**
+   * Below code represents contexts of the page.
+   */
 
   return (
     <Background>
@@ -52,6 +65,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
       <Header>Restore Password</Header>
 
+
+      {/* Email address input section with the functions above execute  */}
       <TextInput
         label="E-mail address"
         returnKeyType="done"
@@ -65,6 +80,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         keyboardType="email-address"
       />
 
+      {/* Button that if it pressed, _onSendPressed function above execute */}
       <Button
         loading={loading}
         mode="contained"
@@ -74,6 +90,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         Send Reset Instructions
       </Button>
 
+      {/* Button for going back to login by using Router  */}
       <TouchableOpacity
         style={styles.back}
         onPress={() => navigation.navigate("LoginScreen")}
@@ -90,6 +107,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
   );
 };
 
+
+/**
+ * Style sheet for HTML template.
+ */
 const styles = StyleSheet.create({
   back: {
     width: "100%",
@@ -105,4 +126,7 @@ const styles = StyleSheet.create({
   }
 });
 
+/**
+ * React Native navigation library...
+ */
 export default memo(ForgotPasswordScreen);
