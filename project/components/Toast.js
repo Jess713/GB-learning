@@ -4,6 +4,11 @@ import { StyleSheet, View, Text } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { theme } from "../core/theme";
 
+
+/**
+ * This class is for the error warning message
+ * It shows when users put wrong input(empty, format)
+ */
 const Toast = ({ type = "error", message, onDismiss }) => (
   <View style={styles.container}>
     <Snackbar
@@ -20,6 +25,10 @@ const Toast = ({ type = "error", message, onDismiss }) => (
   </View>
 );
 
+
+/**
+ * For the style set of the error message...
+ */
 const styles = StyleSheet.create({
   container: {
     position: "absolute",

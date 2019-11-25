@@ -3,6 +3,10 @@ import { View, StyleSheet, Text } from "react-native";
 import { TextInput as Input } from "react-native-paper";
 import { theme } from "../core/theme";
 
+/**
+ * This class is for the user text input box styling pre-set class...
+ * If imported, it automatically set the textbox with the pre-setted style.
+ */
 const TextInput = ({ errorText, ...props }) => (
   <View style={styles.container}>
     <Input
@@ -16,6 +20,9 @@ const TextInput = ({ errorText, ...props }) => (
   </View>
 );
 
+/**
+ * This function is where the style is setted.
+ */
 const styles = StyleSheet.create({
   container: {
     width: "100%",

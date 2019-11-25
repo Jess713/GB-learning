@@ -3,6 +3,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
+/**
+ * For the top bar of each screens...
+ * currently empty bar.
+ */
 export default function TabBarIcon(props) {
   return (
     <Ionicons
