@@ -16,12 +16,14 @@ import {
 import { signInUser } from "../api/auth-api";
 import firebase from "firebase/app";
 import Toast from "../components/Toast";
+
 let productName;
 const setProductName = (val) => {
   productName = val;
 };
-
-
+/**
+ * Sets the default name, email, password, error, and toast to an empty string
+ */
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -30,7 +32,10 @@ const RegisterScreen = ({ navigation }) => {
   const [error, setError] = useState("");
   const [toast, setToast] = useState({ value: "", type: "" });
 
-
+  /**
+   * After pressing the sign up button, it will validate the user's input and
+   * return an error message if needed
+   */
   const _onSignUpPressed = async () => {
     if (loading) return;
     console.log(productName);
@@ -47,7 +52,10 @@ const RegisterScreen = ({ navigation }) => {
       setToast({ type: "error", value: "Please select your product" });
       return;
     }
-
+    /**
+     * Sets the validated name, email, password and product name for Firebase to ensure 
+     * registering is successful
+     */
     setLoading(true);
     const response = await signInUser({
       name: name.value,
@@ -55,13 +63,17 @@ const RegisterScreen = ({ navigation }) => {
       password: password.value,
       product: productName,
     });
-
+    /**
+     * Displays a toast message if user forgets to select product name
+     */
     if (response.error) {
       setError(response.error);
       setToast({ type: "error", value: response.error });
     }
     setLoading(false);
-
+    /**
+     * Creates and authenticates the user in Firebase
+     */
     var user = firebase.auth().currentUser;
 
     if (user) {
@@ -75,7 +87,9 @@ const RegisterScreen = ({ navigation }) => {
 
 
 
-
+  /**
+   * Page layout of the Register Screen.
+   */
   return (
    
     <ScrollView>
@@ -161,7 +175,9 @@ const RegisterScreen = ({ navigation }) => {
   );
 
 };
-
+/**
+ * Styling for the Register Screen page
+ */
 const styles = StyleSheet.create({
   label: {
 
