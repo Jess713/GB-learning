@@ -5,7 +5,10 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 import { AuthSession } from "expo";
-
+/**
+ * Gets the background image and ensures any orientation of the screen
+ * is resolved
+ */
 const Background = ({ children }) => (
   <ImageBackground
     source={require("../assets/background.png")}
@@ -17,7 +20,9 @@ const Background = ({ children }) => (
     </KeyboardAvoidingView>
   </ImageBackground>
 );
-
+/**
+ * To ensure the background image takes over the whole screen
+ */
 const styles = StyleSheet.create({
   background: {
     flex: 1,
