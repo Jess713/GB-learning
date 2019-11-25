@@ -2,7 +2,9 @@ import React, { memo } from "react";
 import { StyleSheet } from "react-native";
 import { Button as PaperButton } from "react-native-paper";
 import { theme } from "../core/theme";
-
+/**
+ * Different styles of buttons are created depending on the style
+ */
 const Button = ({ mode, style, children, ...props }) => (
   <PaperButton
     style={[
@@ -20,7 +22,9 @@ const Button = ({ mode, style, children, ...props }) => (
     {children}
   </PaperButton>
 );
-
+/**
+ * Button styling, determing physical size and text size and colour
+ */
 const styles = StyleSheet.create({
   button: {
     width: "85%",
