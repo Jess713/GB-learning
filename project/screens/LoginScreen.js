@@ -13,12 +13,8 @@ import { loginUser } from "../api/auth-api";
 import Toast from "../components/Toast";
 
 /**
-<<<<<<< HEAD
  * If the user forgets to enter their email or password, the application
  * will display either an error message or toast on the screen
-=======
- * Sets the default name, email, password, error, and toast to an empty string
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
  */
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -26,17 +22,10 @@ const LoginScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [toast, setToast] = useState({ value: "", type: "" });
-<<<<<<< HEAD
   
   /**
    * When the user presses the "login" button, it will validate the user's
    * entry in the database
-=======
-
-  /**
-   * After pressing the login up button, it will validate the user's email and 
-   * password input and returns an error message if needed
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
    */
   const _onLoginPressed = async () => {
     if (loading) return;
@@ -60,14 +49,9 @@ const LoginScreen = ({ navigation }) => {
       email: email.value,
       password: password.value
     });
-<<<<<<< HEAD
     /**
      * Displays a toast if the user failed to login, otherwise it will
      * proceed to launch the LandingScreen
-=======
-     /**
-     * Displays a toast message if the login failed or succeeded
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
      */
     if (response.error) {
       setError(response.error);
@@ -75,33 +59,22 @@ const LoginScreen = ({ navigation }) => {
       console.log("login failed");
     } else {
       console.log("Login success");
-<<<<<<< HEAD
       /**
        * Sets the application to the video sections where the user cannot
        * go back to the login/register sections
        */
       setTimeout(()=>navigation.navigate("App"),1000);
-=======
-      setTimeout(() => navigation.navigate("App"), 1000);
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
       // resetAction;
     }
     /**
      * Doesn't displays loading spinnger
      */
     setLoading(false);
-<<<<<<< HEAD
    
   };
   /**
    * This section renders and displays what the user will see on the
    * LoginScreen page
-=======
-
-  };
-   /**
-   * Page layout of the Login Screen.
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
    */
   return (
     <Background>
@@ -165,11 +138,7 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 /**
-<<<<<<< HEAD
  * Styling for the LoginScreen page
-=======
- * Styling for the Login Screen page
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
  */
 const styles = StyleSheet.create({
   forgotPassword: {

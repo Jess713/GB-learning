@@ -16,104 +16,6 @@ import { theme } from "../core/theme";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import { logoutUser } from "../api/auth-api";
-<<<<<<< HEAD
-/**
- * This class ( LandingScreen.js ) is for the page which after the users sign-in,
- * Displays the video from Youtube and shows play lists of each categories
- */
-const DATA = [
-  {
-    id: 'first', //has to be string here for id
-    title: 'Anatomical Models',
-  },
-  {
-    id: 'second',
-    title: 'Surgical Task Trainers',
-  },
-  {
-    id: 'third',
-    title: 'Patient Education',
-  },
-  // {
-  //   id: 'fourth',
-  //   title: 'Fourth Item',
-  // },
-];
-/**
- * Item Function creates HTML designs and call it inside main rendering function.
- * 
- */
-function Item({ id, title, selected, onSelect }) {
-  return (
-    <TouchableOpacity
-      onPress={() => onSelect(id)}
-      style={styles.item}
-    >
-      <Text style={styles.title}>{title}</Text>
-    </TouchableOpacity>
-  );
-}
-
-// The main function which returns the HTML designs, and also addes other functions.
-
-const LandingScreen = ({ navigation, navigationOptions }) => {
-  const [selected, setSelected] = React.useState(new Map());
-
-  const onSelect = React.useCallback(
-    id => {
-      const newSelected = new Map(selected);
-      newSelected.set(id, !selected.get(id));
-      //   alert(id);
-
-      setSelected(newSelected);
-      // Actions.videolist({pressed: id});
-      navigation.navigate('VideoList', { pressed: id });
-    },
-    [selected],
-  );
-
-  /**
-   * HTML syntax part
-   */
-  return (
-    <Background>
-      <View style={styles.viewstyle}>
-        <Text style={styles.baseText}>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.titleText}>{"Welcome to Granville Learn"}{'\n'}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <View>
-            <Landingphoto />
-          </View>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          {/* <Text style={styles.bodyText}>{"The Learning Module is the place where you can watch tutorials and lectures on any of our Granville Biomedical product line."}{'\n'}</Text> */}
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.bodyText}>{"1. Please select the matching product playlist to view tutorials"}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-          <Text style={styles.bodyText}>{"2. Each playlist contains multiple videos that will guide your learning"}</Text>
-          <Text style={styles.titleText}>{'\n'}</Text>
-        </Text>
-
-        <FlatList style={styles.list}
-          data={DATA}
-          renderItem={({ item }) => (
-            <Item
-              id={item.id}
-              title={item.title}
-              selected={selected.get(item.id)}
-              onSelect={onSelect}
-              style={styles.item}
-            />
-          )}
-
-          keyExtractor={item => item.id}
-          extraData={selected}
-        />
-
-        <Button style={styles.button} mode="outlined" onPress={() => navigation.navigate("LoginScreen")}>
-          Logout
-=======
 
 const MAX_RESULT = 50;
 //Heathers:PLAfn5OU0QoMDK5XQsbkXuITRqvPf6o0gQ
@@ -193,7 +95,6 @@ export default class LandingScreen extends Component<{}> {
               logoutUser();
             }}>
               Logout
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
         </Button>
 
           </Background>
@@ -202,22 +103,8 @@ export default class LandingScreen extends Component<{}> {
     );
   }
 }
-<<<<<<< HEAD
-/**
- *  These function sets the title navigates for different pages.
- */
-LandingScreen.navigationOptions = {
-  title: 'Home',
-  headerLeft: null,
 
-};
 
-/**
- * Style sets...
- */
-=======
-
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -262,13 +149,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-<<<<<<< HEAD
-
-=======
     backgroundColor: "#403a60",
     marginTop: 40,
     marginBottom: 40,
->>>>>>> 792cdc47efb3bccd545be63220f2e60346b41cd0
   },
 
 });
