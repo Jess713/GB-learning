@@ -140,11 +140,10 @@ const RegisterScreen = ({ navigation }) => {
           onValueChange={(value) => setProductName(value)}
           items={[
             { label: 'Please select your product', value: 'N/A', color: "#363c74" },
-            { label: 'EpiSim Suturing Task Trainer', value: 'EpiSim', color: "#363c74" },
-            { label: 'Fetal Skull', value: 'FetalSkull', color: "#363c74" },
-            { label: 'FistulaSim', value: 'FistSim', color: "#363c74" },
-            { label: 'OasisSim Obstetrics Simulation Task Trainer', value: 'OOSTT', color: "#363c74" },
-            { label: 'PeriSim Obstetrics Simulation Task Trainer', value: 'POSTT', color: "#363c74" },
+            { label: 'EpiSim Task Trainer', value: 'EpiSim', color: "#363c74" },
+            { label: 'FistulaSim Task Trainer', value: 'FistSim', color: "#363c74" },
+            { label: 'OasisSim Task Trainer', value: 'OasisSim', color: "#363c74" },
+            { label: 'PeriSim Task Trainer', value: 'PeriSim', color: "#363c74" },
           ]}
         />
 
