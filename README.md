@@ -10,3 +10,4 @@ This application is exclusive for product purchasers of Granville Biomedicals pr
 3. Select playlist
 4. View and learn
 
+This application was written in React-Native and as cross-platform compatible with the web, android, and ios.
